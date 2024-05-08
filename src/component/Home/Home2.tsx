@@ -24,8 +24,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { actionCloseTab } from "../../feature/opentab/opentab.reducer";
 import { actionChangeColor } from "../../feature/setColorTag/setColorTag.reducer";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Home2({ navigation }: { navigation: any }) {
+export default function Home2() {
   const openTabList = useSelector(
     (state: RootState) => state.openTab.openTabList
   );
@@ -37,6 +38,8 @@ export default function Home2({ navigation }: { navigation: any }) {
   const setColorTagList = useSelector((state: RootState) => state.setColorTag);
 
   const dispatch = useDispatch();
+
+  const navigation:any = useNavigation();
 
   const renderNotiBoxes2 = () => {
     return notiBoxes2.map((box, index) => (

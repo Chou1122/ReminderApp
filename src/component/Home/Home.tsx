@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import { useNavigation } from "@react-navigation/native";
+
 import NotiBox from "../NotiBox/NotiBox";
 import ListBox from "../ListBox/ListBox";
 import BottomTab1 from "../BottomTab/BottomTab1";
@@ -24,7 +26,7 @@ import { actionCloseTab } from "../../feature/opentab/opentab.reducer";
 import { actionChangeColor } from "../../feature/setColorTag/setColorTag.reducer";
 import { RootState } from "../../../store";
 
-export default function Home({ navigation }: { navigation: any }) {
+export default function Home() {
   const openTabList = useSelector(
     (state: RootState) => state.openTab.openTabList
   );
@@ -47,6 +49,8 @@ export default function Home({ navigation }: { navigation: any }) {
     ));
   };
 
+  const navigation:any = useNavigation();
+
   const renderMyList = () => {
     return myListArr.map((item:any, index:any) => (
       <ListBox
@@ -55,6 +59,7 @@ export default function Home({ navigation }: { navigation: any }) {
         iconBox={item.iconBox}
         textBox={item.textBox}
         numberBox={item.numberBox}
+        indexKey={item.indexKey}
         isLast={index === myListArr.length - 1 ? "true" : "false"}
       />
     ));

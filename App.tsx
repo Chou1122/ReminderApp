@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 
 import Home from "./src/component/Home/Home";
 import Home2 from "./src/component/Home/Home2";
+import DetailListTab from "./src/component/DetailTab/detailListTab";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
           >
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Home2" component={Home2} />
+            <Stack.Screen name="DetailListTab" component={DetailListTab} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
