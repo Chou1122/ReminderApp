@@ -10,11 +10,15 @@ const initalState: openTabState = {
         newGroupTab: false,
         newListTab: false,
         newTaskTab: false,
+        newTaskDetailTab: false,
+
+        indexListOpened: -1,
     }
 }
 
 export const actionOpenTab = createAction<string>('opentab/actionOpen');
 export const actionCloseTab = createAction<string>('opentab/actionClose');
+export const actionSetIndexListOpened = createAction<number>('opentab/actionSetIndexListOpend');
 
 const openTabReducer = createReducer(initalState, builder => {
     builder.addCase(actionOpenTab, (state: any, action: any) => {
@@ -23,6 +27,9 @@ const openTabReducer = createReducer(initalState, builder => {
     }).addCase(actionCloseTab, (state: any, action: any) => {
         const tmpTab: string = action.payload;
         state['openTabList'][tmpTab] = false;
+    }).addCase(actionSetIndexListOpened, (state: any, action: any) => {
+        const tmpIndex: number = action.payload;
+        state['openTabList']['indexListOpened'] = tmpIndex;
     })
     
 })

@@ -103,6 +103,7 @@ export default function NewGroupTab() {
             </View>
           </View>
         </View>
+        
       </View>
     </ScrollView>
   );

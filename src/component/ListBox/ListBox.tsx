@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { actionCloseTab } from "../../feature/opentab/opentab.reducer";
 
 export default function ListBox(myProp: {
   colorBox: any;
@@ -20,7 +22,12 @@ export default function ListBox(myProp: {
 }) {
   const navigation: any = useNavigation();
 
+  const dispatch = useDispatch()
+
   const detailOnPress = () => {
+    dispatch(actionCloseTab("newTaskTab"));
+    dispatch(actionCloseTab("newTaskDetailTab"));
+    
     navigation.navigate("DetailListTab",{
         indexList: myProp.indexKey,
         nameList: myProp.textBox,

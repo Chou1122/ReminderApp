@@ -46,40 +46,38 @@ export default function DetailTaskTab(myProp: {
   };
 
   return (
-    <>
-      <View className="flex-row h-16 w-full pl-5">
-        <View className="h-full w-fit justify-center pr-5">
-          <TouchableOpacity
-            className="h-[50%] aspect-square rounded-full border-2 justify-center items-center"
+    <View className="flex-row h-16 w-full pl-5">
+      <View className="h-full w-fit justify-center pr-5">
+        <TouchableOpacity
+          className="h-[50%] aspect-square rounded-full border-2 justify-center items-center"
+          style={{
+            borderColor:
+              isChecked == true ? "rgb(96 165 250)" : "rgb(229 231 235)",
+          }}
+          onPress={() => {
+            checkOnPress();
+          }}
+        >
+          <View
+            className="h-[80%] aspect-square rounded-full"
             style={{
-              borderColor:
-                isChecked == true ? "rgb(96 165 250)" : "rgb(229 231 235)",
+              backgroundColor:
+                isChecked == true ? "rgb(96 165 250)" : "rgb(255 255 255)",
             }}
-            onPress={() => {
-              checkOnPress();
-            }}
-          >
-            <View
-              className="h-[80%] aspect-square rounded-full"
-              style={{
-                backgroundColor:
-                  isChecked == true ? "rgb(96 165 250)" : "rgb(255 255 255)",
-              }}
-            ></View>
-          </TouchableOpacity>
-        </View>
-        <View className="flex-row h-full w-full border-b-2 border-gray-100">
-          {isNew == true && (
-            <View className="h-full w-4 justify-center items-center">
-              <Text className="text-blue-400 text-base">{"!"}</Text>
-            </View>
-          )}
-
-          <View className="h-full w-full justify-center">
-            <Text className="text-base">{nameTask}</Text>
+          ></View>
+        </TouchableOpacity>
+      </View>
+      <View className="flex-row h-full w-full border-b-2 border-gray-100">
+        {isNew == true && (
+          <View className="h-full w-4 justify-center items-center">
+            <Text className="text-blue-400 text-base">{"!"}</Text>
           </View>
+        )}
+
+        <View className="h-full w-full justify-center">
+          <Text className="text-base">{nameTask}</Text>
         </View>
       </View>
-    </>
+    </View>
   );
 }
