@@ -10,20 +10,76 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 
-export default function DetailListTab(myProp: { navigation: any; route: any }) {
+import BottomTab1 from "../BottomTab/BottomTab1";
+import BottomTab3 from "../BottomTab/BottomTab3";
+import DetailTaskTab from "./detailTaskTab";
+import NewTaskTab from "../NewTab/NewTaskTab";
+
+import { actionDeleteTask } from "../../feature/allListRedux/myList.reducer";
+import { actionClearCheckTask } from "../../feature/allListRedux/myList.reducer";
+
+export default function DetailListTab(myProp: { navigation: any; route: any }) { 
+  const dispatch = useDispatch();
+
   const indexList: number = myProp.route.params.indexList;
   const nameList: number = myProp.route.params.nameList;
-
 
   const navigation: any = myProp.navigation;
 
   const listsOnPress = () => {
     navigation.goBack();
   };
+
+  const myListArr = useSelector((state: RootState) => state.setMyList.myListArr);
+  const [myListTask, setMyListTask] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    dispatch(actionClearCheckTask(indexList));
+  },[])
+
+  useEffect(() => {
+    for (let i = 0; i < myListArr.length; ++i) {
+      if (indexList == myListArr[i].indexKey) {
+        setMyListTask(myListArr[i].taskList.taskListArr);
+        break;
+      }
+    }
+  });
+
+  const [countChecked, setCountChecked] = useState(() => {
+    let res:number = 0;
+    for (let i = 0; i < myListTask.length; ++i)
+        if (myListTask[i]['isChecked'] == true) res++;
+
+    return res;
+  }); 
+
+  useEffect(() => {
+    let res:number = 0;
+    for (let i = 0; i < myListTask.length; ++i)
+        if (myListTask[i]['isChecked'] == true) res++;
+    setCountChecked(res);
+  },[myListTask])
+
+  const renderTaskList = () => {
+    return myListTask.map((item:any, index:any) => <DetailTaskTab
+        key={index}
+        indexList={indexList}
+        indexTask={item.keyTask}
+        myListTask={myListTask}
+    ></DetailTaskTab>)
+  }
+
+  const clearOnPress = () => {
+    if (countChecked == 0) {
+      return;
+    }
+    dispatch(actionDeleteTask(indexList));
+  }
 
   return (
     <View className="h-full w-full bg-white pt-[28]">
@@ -61,11 +117,36 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           </TouchableOpacity>
         </View>
       </View>
-
-      <View className='h-24 w-full pl-5 pr-5 justify-center'>
-        <Text className='text-3xl font-bold' style={{color:"#3376F2"}}>
-            {nameList}
+      <View className="h-24 w-full pl-5 pr-5 justify-center">
+        <Text className="text-3xl font-bold" style={{ color: "#3376F2" }}>
+          {nameList}
         </Text>
+      </View>
+      <View className="h-16 w-full pl-5">
+        <View className="flex-row h-full w-full border-b-2 border-gray-100">
+          <View className="h-full w-fit justify-center">
+            <Text className="text-gray-300 text-base">{`${countChecked} Completed`}</Text>
+          </View>
+          <View className="h-full w-6 justify-center justify-center items-center">
+            <Ionicons name="ellipse" size={5} color="gray"></Ionicons>
+          </View>
+          <View className="h-full w-fit justify-center justify-center items-center">
+            <TouchableOpacity onPress={() => clearOnPress()}>
+              <Text style={{color:countChecked == 0 ? 'rgb(229 231 235)' : 'rgb(96 165 250)'}}>Clear</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
+      <ScrollView className='w-full'>
+            {renderTaskList()}
+            <View className='h-16 w-full'>
+
+            </View>
+      </ScrollView>
+
+      <View className="flex-row h-[6.4%] w-full bg-white pl-4 pr-4 justify-between absolute bottom-[0]">
+        <BottomTab3></BottomTab3>
       </View>
     </View>
   );

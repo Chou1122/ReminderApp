@@ -1,4 +1,5 @@
 export interface openTabType {
     newGroupTab: boolean,
-    newListTab: boolean
+    newListTab: boolean,
+    newTaskTab: boolean,
 }

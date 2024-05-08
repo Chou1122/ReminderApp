@@ -8,7 +8,8 @@ interface openTabState {
 const initalState: openTabState = {
     openTabList: {
         newGroupTab: false,
-        newListTab: false
+        newListTab: false,
+        newTaskTab: false,
     }
 }
 
