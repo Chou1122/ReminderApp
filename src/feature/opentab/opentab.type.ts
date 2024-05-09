@@ -3,6 +3,7 @@ export interface openTabType {
     newListTab: boolean,
     newTaskTab: boolean,
     newTaskDetailTab: boolean,
+    priorityTaskTab: boolean,
 
     indexListOpened: number,
 }

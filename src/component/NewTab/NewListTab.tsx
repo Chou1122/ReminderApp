@@ -103,7 +103,7 @@ export default function NewListTab() {
   };
 
   return (
-    <ScrollView className="w-full min-h-screen">
+    <ScrollView className="w-full min-h-screen" showsVerticalScrollIndicator={false}>
       <View className="w-full h-[64]"></View>
 
       <View className="w-full h-fit min-h-[1000] bg-gray-200 rounded-t-2xl">

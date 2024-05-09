@@ -44,12 +44,13 @@ export default function NewTaskTab(myProp: { navigation: any, indexKey: number }
   const detailOnPress = () => {
 
     dispatch(actionCloseTab("newTaskTab"));
+    dispatch(actionCloseTab('priorityTaskTab'));
     
     dispatch(actionOpenTab("newTaskDetailTab"));
   }
 
   return (
-    <ScrollView className="min-h-screen w-full">
+    <ScrollView className="min-h-screen w-full" showsVerticalScrollIndicator={false}>
       <View className="w-full h-[64]"></View>
 
       <View className="min-h-[1000] h-fit w-full bg-gray-200 rounded-t-2xl">

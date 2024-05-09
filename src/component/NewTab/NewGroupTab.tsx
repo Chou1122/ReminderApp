@@ -41,7 +41,7 @@ export default function NewGroupTab() {
   };
 
   return (
-    <ScrollView className="min-h-screen w-full">
+    <ScrollView className="min-h-screen w-full" showsVerticalScrollIndicator={false}>
       <View className="w-full h-[64]"></View>
 
       <View className="w-full h-[1000] bg-gray-200 rounded-t-2xl">

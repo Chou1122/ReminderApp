@@ -27,6 +27,7 @@ export default function ListBox(myProp: {
   const detailOnPress = () => {
     dispatch(actionCloseTab("newTaskTab"));
     dispatch(actionCloseTab("newTaskDetailTab"));
+    dispatch(actionCloseTab('priorityTaskTab'));
     
     navigation.navigate("DetailListTab",{
         indexList: myProp.indexKey,

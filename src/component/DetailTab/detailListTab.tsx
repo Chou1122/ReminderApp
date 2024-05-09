@@ -19,6 +19,7 @@ import BottomTab3 from "../BottomTab/BottomTab3";
 import DetailTaskTab from "./detailTaskTab";
 import NewTaskTab from "../NewTab/NewTaskTab";
 import NewTaskDetailTab from "../NewTab/NewTaskDetailTab";
+import PriorityTaskTab from "../NewTab/PriorityTaskTab";
 
 import { actionDeleteTask } from "../../feature/allListRedux/myList.reducer";
 import { actionClearCheckTask } from "../../feature/allListRedux/myList.reducer";
@@ -182,6 +183,15 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         >
           <NewTaskDetailTab navigation={myProp.navigation} indexKey={indexList}></NewTaskDetailTab>
+        </View>
+      )}
+
+      {openTabList.priorityTaskTab == true && (
+        <View
+          className="flex-row h-full w-full absolute bottom-[0]"
+          style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+        >
+          <PriorityTaskTab navigation={myProp.navigation} indexKey={indexList}></PriorityTaskTab>
         </View>
       )}
     </>

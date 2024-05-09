@@ -11,6 +11,7 @@ const initalState: openTabState = {
         newListTab: false,
         newTaskTab: false,
         newTaskDetailTab: false,
+        priorityTaskTab: false,
 
         indexListOpened: -1,
     }
