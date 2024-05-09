@@ -14,15 +14,22 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 
-import { actionCloseTab, actionOpenTab } from "../../feature/opentab/opentab.reducer";
+import { acitonSetTitleNewTask, actionCloseTab, actionOpenTab } from "../../feature/opentab/opentab.reducer";
+import { actionAddTask } from "../../feature/allListRedux/myList.reducer";
 
 export default function NewTaskTab(myProp: { navigation: any, indexKey: number }) {
   const myListArr = useSelector(
     (state: RootState) => state.setMyList.myListArr
   );
+
+  const titleNewTask = useSelector(
+    (state: RootState) => state.openTab.openTabList.titleNewTask
+  );
   
   const indexList:number = myProp.indexKey;
   const [posList, setPosList] = useState<number>(0);
+  const [titleState, setTitleState] = useState(titleNewTask);
+  const [noteState, setNoteState] = useState('');
 
   useEffect(() => {
     for (let i = 0; i < myListArr.length; ++i) {
@@ -49,6 +56,33 @@ export default function NewTaskTab(myProp: { navigation: any, indexKey: number }
     dispatch(actionOpenTab("newTaskDetailTab"));
   }
 
+  const addOnPress = () => {
+
+    if (titleState == '') return;
+
+    dispatch(actionAddTask({
+      indexList: indexList,
+      nameTask: titleState,
+    }));
+
+    dispatch(acitonSetTitleNewTask(""));
+
+    dispatch(actionCloseTab('newTaskTab'));
+  }
+
+  const handleTitleChange = (text: string) => {
+    setTitleState(text);
+  }
+
+  useEffect(() => {
+    // console.log('add: ',titleState);
+    dispatch(acitonSetTitleNewTask(titleState)); 
+  },[titleState])
+
+  const handleNoteChange = (text: string) => {
+    setNoteState(text);
+  }
+
   return (
     <ScrollView className="min-h-screen w-full" showsVerticalScrollIndicator={false}>
       <View className="w-full h-[64]"></View>
@@ -73,8 +107,10 @@ export default function NewTaskTab(myProp: { navigation: any, indexKey: number }
             </Text>
           </View>
           <View className="w-[20%] h-full items-end">
-            <TouchableOpacity className="h-full w-[70%] justify-center items-end">
-              <Text className="text-gray-400 font-semibold text-base">Add</Text>
+            <TouchableOpacity className="h-full w-[70%] justify-center items-end"
+             onPress={() => {addOnPress()}}
+            >
+              <Text className={`${titleState == '' ? 'text-gray-400' : 'text-blue-400'} font-semibold text-base`}>Add</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -88,6 +124,8 @@ export default function NewTaskTab(myProp: { navigation: any, indexKey: number }
                 <TextInput
                   className="h-full w-[90%] text-base"
                   placeholder="Title"
+                  value={titleState}
+                  onChangeText={handleTitleChange}
                 ></TextInput>
               </View>
             </View>
@@ -97,6 +135,8 @@ export default function NewTaskTab(myProp: { navigation: any, indexKey: number }
                 <TextInput
                   className="h-full w-[90%] text-base"
                   placeholder="Notes"
+                  value={noteState}
+                  onChangeText={handleNoteChange}
                 ></TextInput>
               </View>
             </View>

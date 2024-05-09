@@ -3,7 +3,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function NotiBox(mProp: {colorBox: any, iconBox: any, numberBox: any, textBox: string,}) {
     return (
-        <View className='flex-row h-28  w-[48%] bg-white rounded-xl items-center justify-around mb-4'>
+        <TouchableOpacity className='flex-row h-28  w-[48%] bg-white rounded-xl items-center justify-around mb-4'>
           <View className='h-[80%] w-[68%] justify-between'>
             <View className={`h-[48%] aspect-square rounded-full ml-1 justify-center items-center`} 
              style={{ backgroundColor: mProp.colorBox }}
@@ -23,6 +23,6 @@ export default function NotiBox(mProp: {colorBox: any, iconBox: any, numberBox: 
               {mProp.numberBox}
             </Text>
           </View>
-        </View> 
+        </TouchableOpacity> 
     )
 }

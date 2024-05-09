@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { myListType } from "./myList.type";
+import { myListType, myTaskType } from "./myList.type";
 import { initialState } from "./myListSample";
           
 export const actionAddList = createAction<any>('setMyList/addList');
@@ -65,8 +65,32 @@ const setMyList = createReducer(initialState, builder => {
     }).addCase(actionAddTask, (state:any, action: any) => {
       const myAction:any = action.payload;
 
+      const indexList = myAction.indexList;
+      const nameTask = myAction.nameTask;
 
+      for (let i = 0; i < state['myListArr'].length; i++) {
+      
+        if (indexList == state['myListArr'][i]['indexKey']) {
+
+          state['myListArr'][i]['taskList']['countTaskKey']++;
+
+          const indexTask = state['myListArr'][i]['taskList']['countTaskKey'];
+
+          const sampleTask:myTaskType = {
+            isChecked: false,
+            isNew: true,
+            nameTask: nameTask,
+            keyTask: indexTask,
+          }
+
+          state['myListArr'][i]['taskList']['taskListArr'].push(sampleTask);
+          state['myListArr'][i]['numberBox'] = state['myListArr'][i]['taskList']['taskListArr'].length;
+
+          break;
+        }
+      }
     })
+
 })
 
 export default setMyList;

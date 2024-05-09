@@ -14,7 +14,7 @@ import NotiBox from "../NotiBox/NotiBox";
 import ListBox from "../ListBox/ListBox";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { actionCloseTab, actionOpenTab } from "../../feature/opentab/opentab.reducer";
+import { actionCloseTab, actionOpenTab,acitonSetTitleNewTask } from "../../feature/opentab/opentab.reducer";
 import { actionChangeColor } from "../../feature/setColorTag/setColorTag.reducer";
 
 export default function BottomTab3() {
@@ -23,6 +23,7 @@ export default function BottomTab3() {
   const newReminderOnPress = () => {
     dispatch(actionCloseTab('priorityTaskTab'));
     dispatch(actionOpenTab("newTaskTab"));
+    dispatch(acitonSetTitleNewTask(''));
   };
 
   return (

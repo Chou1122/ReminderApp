@@ -17,6 +17,7 @@ import BottomTab1 from "../BottomTab/BottomTab1";
 import BottomTab3 from "../BottomTab/BottomTab3";
 
 import { actionCheckTask } from "../../feature/allListRedux/myList.reducer";
+import { actionOpenTab, actionSetIndexTaskOpened } from "../../feature/opentab/opentab.reducer";
 
 export default function DetailTaskTab(myProp: {
   indexList: any;
@@ -41,12 +42,21 @@ export default function DetailTaskTab(myProp: {
   const isChecked = myListTask[posTask].isChecked;
   const isNew = myListTask[posTask].isNew;
 
+  const taskOnPress = () => {
+
+    dispatch(actionSetIndexTaskOpened(indexTask));
+    dispatch(actionOpenTab('settingDetailTaskTab'));
+    // console.log(1);
+  }
+
   const checkOnPress = () => {
     dispatch(actionCheckTask({ indexList, indexTask }));
   };
 
   return (
-    <View className="flex-row h-16 w-full pl-5">
+    <TouchableOpacity className="flex-row h-16 w-full pl-5"
+     onPress={() => taskOnPress()}
+    >
       <View className="h-full w-fit justify-center pr-5">
         <TouchableOpacity
           className="h-[50%] aspect-square rounded-full border-2 justify-center items-center"
@@ -78,6 +88,6 @@ export default function DetailTaskTab(myProp: {
           <Text className="text-base">{nameTask}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

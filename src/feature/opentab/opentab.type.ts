@@ -4,6 +4,11 @@ export interface openTabType {
     newTaskTab: boolean,
     newTaskDetailTab: boolean,
     priorityTaskTab: boolean,
+    cPriorityTaskTab: boolean,
+    settingDetailTaskTab: boolean,
 
     indexListOpened: number,
+    indexTaskOpened: number,
+
+    titleNewTask: string,
 }

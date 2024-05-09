@@ -28,6 +28,8 @@ export default function ListBox(myProp: {
     dispatch(actionCloseTab("newTaskTab"));
     dispatch(actionCloseTab("newTaskDetailTab"));
     dispatch(actionCloseTab('priorityTaskTab'));
+    dispatch(actionCloseTab('cPriorityTaskTab'));
+    dispatch(actionCloseTab('settingDetailTaskTab'));
     
     navigation.navigate("DetailListTab",{
         indexList: myProp.indexKey,

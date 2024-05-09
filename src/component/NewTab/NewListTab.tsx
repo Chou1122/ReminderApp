@@ -40,6 +40,8 @@ export default function NewListTab() {
   };
 
   const doneOnPress = () => {
+    if (listNameState == '') return;
+
     dispatch(actionCloseTab("newListTab"));
     dispatch(
       actionChangeColor({ tagName: "home2BackgroundColor", color: "#E5E7EB" })
@@ -127,7 +129,7 @@ export default function NewListTab() {
               className="h-full w-[70%] justify-center items-end"
               onPress={() => doneOnPress()}
             >
-              <Text className="text-gray-400 font-semibold text-base">
+              <Text className={`${listNameState == '' ? 'text-gray-400' : 'text-blue-400'} font-semibold text-base`}>
                 Done
               </Text>
             </TouchableOpacity>

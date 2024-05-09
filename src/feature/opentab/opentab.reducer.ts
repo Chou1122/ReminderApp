@@ -12,14 +12,21 @@ const initalState: openTabState = {
         newTaskTab: false,
         newTaskDetailTab: false,
         priorityTaskTab: false,
+        cPriorityTaskTab: false,
+        settingDetailTaskTab: false,
 
         indexListOpened: -1,
+        indexTaskOpened: -1,
+
+        titleNewTask: '',
     }
 }
 
 export const actionOpenTab = createAction<string>('opentab/actionOpen');
 export const actionCloseTab = createAction<string>('opentab/actionClose');
 export const actionSetIndexListOpened = createAction<number>('opentab/actionSetIndexListOpend');
+export const actionSetIndexTaskOpened = createAction<number>('opentab/actionSetIndexTaskOpened');
+export const acitonSetTitleNewTask = createAction<string>('openTab/actionSetTitleNewTask');
 
 const openTabReducer = createReducer(initalState, builder => {
     builder.addCase(actionOpenTab, (state: any, action: any) => {
@@ -31,6 +38,13 @@ const openTabReducer = createReducer(initalState, builder => {
     }).addCase(actionSetIndexListOpened, (state: any, action: any) => {
         const tmpIndex: number = action.payload;
         state['openTabList']['indexListOpened'] = tmpIndex;
+    }).addCase(actionSetIndexTaskOpened, (state: any, action: any) => {
+        const tmpIndex: number = action.payload;
+        state['openTabList']['indexTaskOpened'] = tmpIndex;
+    }).addCase(acitonSetTitleNewTask, (state: any, action: any) => {
+        const titleNewTask = action.payload;
+        // console.log('new: ',titleNewTask);
+        state['openTabList']['titleNewTask'] = titleNewTask;
     })
     
 })

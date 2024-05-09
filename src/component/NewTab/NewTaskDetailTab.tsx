@@ -16,9 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 
 import {
+  acitonSetTitleNewTask,
   actionCloseTab,
   actionOpenTab,
 } from "../../feature/opentab/opentab.reducer";
+import { actionAddTask } from "../../feature/allListRedux/myList.reducer";
 
 export default function NewTaskDetailTab(myProp: {
   navigation: any;
@@ -26,6 +28,10 @@ export default function NewTaskDetailTab(myProp: {
 }) {
   const myListArr = useSelector(
     (state: RootState) => state.setMyList.myListArr
+  );
+
+  const titleNewTask = useSelector(
+    (state: RootState) => state.openTab.openTabList.titleNewTask
   );
 
   const priorityState = useSelector(
@@ -103,6 +109,20 @@ export default function NewTaskDetailTab(myProp: {
     );
   };
 
+  const addOnPress = () => {
+
+    if (titleNewTask == '') return;
+
+    dispatch(actionAddTask({
+      indexList: indexList,
+      nameTask: titleNewTask,
+    }));
+
+    dispatch(acitonSetTitleNewTask(""));
+
+    dispatch(actionCloseTab('newTaskDetailTab'));
+  }
+
   return (
     <ScrollView
       className="min-h-screen w-full"
@@ -135,10 +155,11 @@ export default function NewTaskDetailTab(myProp: {
           </View>
 
           <View className="h-full w-[40%] items-end pr-5">
-            <TouchableOpacity className="h-full w-fit justify-center pl-2">
+            <TouchableOpacity className="h-full w-fit justify-center pl-2"
+             onPress={() => {addOnPress()}}
+            >
               <Text
-                className="font-semibold text-sm"
-                style={{ color: "rgb(156 163 175)" }}
+                className={`font-semibold text-sm ${titleNewTask == '' ? 'text-gray-400' : 'text-blue-400'}`}
               >
                 Add
               </Text>

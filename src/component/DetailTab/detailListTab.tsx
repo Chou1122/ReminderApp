@@ -20,13 +20,19 @@ import DetailTaskTab from "./detailTaskTab";
 import NewTaskTab from "../NewTab/NewTaskTab";
 import NewTaskDetailTab from "../NewTab/NewTaskDetailTab";
 import PriorityTaskTab from "../NewTab/PriorityTaskTab";
+import SettingDetailTaskTab from "./settingDetailTaskTab";
 
 import { actionDeleteTask } from "../../feature/allListRedux/myList.reducer";
 import { actionClearCheckTask } from "../../feature/allListRedux/myList.reducer";
+import CPriorityTaskTab from "../NewTab/cPriorityTaskTab";
 
 export default function DetailListTab(myProp: { navigation: any; route: any }) {
   const openTabList = useSelector(
     (state: RootState) => state.openTab.openTabList
+  );
+
+  const taskKeyOpen = useSelector(
+    (state: RootState) => state.openTab.openTabList.indexTaskOpened
   );
 
   const dispatch = useDispatch();
@@ -186,12 +192,21 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
         </View>
       )}
 
-      {openTabList.priorityTaskTab == true && (
+      {openTabList.cPriorityTaskTab == true && (
         <View
           className="flex-row h-full w-full absolute bottom-[0]"
           style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         >
-          <PriorityTaskTab navigation={myProp.navigation} indexKey={indexList}></PriorityTaskTab>
+          <CPriorityTaskTab navigation={myProp.navigation} indexKey={indexList}></CPriorityTaskTab>
+        </View>
+      )}
+
+      {openTabList.settingDetailTaskTab == true && (
+        <View
+          className="flex-row h-full w-full absolute bottom-[0]"
+          style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+        >
+          <SettingDetailTaskTab navigation={myProp.navigation} indexKey={indexList} taskKey={taskKeyOpen}></SettingDetailTaskTab>
         </View>
       )}
     </>

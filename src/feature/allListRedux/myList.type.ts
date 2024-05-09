@@ -1,7 +1,7 @@
 export interface myTaskType {
     isNew: boolean,
     nameTask: string,
-    indexTask: number,
+    keyTask: number,
     isChecked: boolean,
 }
 
