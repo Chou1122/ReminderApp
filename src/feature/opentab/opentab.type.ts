@@ -11,4 +11,8 @@ export interface openTabType {
     indexTaskOpened: number,
 
     titleNewTask: string,
+
+    minuteTimeTask: number,
+    hourTimeTask: number,
+    timeOnTask: boolean,
 }

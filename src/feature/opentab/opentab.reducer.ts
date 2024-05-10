@@ -19,6 +19,10 @@ const initalState: openTabState = {
         indexTaskOpened: -1,
 
         titleNewTask: '',
+
+        minuteTimeTask: 5,
+        hourTimeTask: 12,
+        timeOnTask: false,
     }
 }
 
@@ -27,6 +31,9 @@ export const actionCloseTab = createAction<string>('opentab/actionClose');
 export const actionSetIndexListOpened = createAction<number>('opentab/actionSetIndexListOpend');
 export const actionSetIndexTaskOpened = createAction<number>('opentab/actionSetIndexTaskOpened');
 export const acitonSetTitleNewTask = createAction<string>('openTab/actionSetTitleNewTask');
+export const actionSetMinuteTask = createAction<number>('openTab/actionSetMinuteTask');
+export const actionSetHourTask = createAction<number>('openTab/actionSetHourTask');
+export const actionTurnTimeTask = createAction<boolean>('openTab/actionTurnTimeTask');
 
 const openTabReducer = createReducer(initalState, builder => {
     builder.addCase(actionOpenTab, (state: any, action: any) => {
@@ -45,6 +52,18 @@ const openTabReducer = createReducer(initalState, builder => {
         const titleNewTask = action.payload;
         // console.log('new: ',titleNewTask);
         state['openTabList']['titleNewTask'] = titleNewTask;
+    }).addCase(actionSetMinuteTask, (state: any, action: any) => {
+        const minuteTask = action.payload;
+
+        state['openTabList']['minuteTimeTask'] = minuteTask;
+    }).addCase(actionSetHourTask, (state: any, action: any) => {
+        const hourTask = action.payload;
+
+        state['openTabList']['hourTimeTask'] = hourTask;
+    }).addCase(actionTurnTimeTask, (state: any, action: any) => {
+        const timeTask = action.payload;
+
+        state['openTabList']['timeOnTask'] = timeTask;
     })
     
 })
