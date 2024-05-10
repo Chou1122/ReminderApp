@@ -5,6 +5,7 @@ import setColorTagReducer from "./src/feature/setColorTag/setColorTag.reducer";
 import setMyList from "./src/feature/allListRedux/myList.reducer";
 import setPriorityTask from "./src/feature/setPriorityTask/setPriorityTask.reducer";
 import timeTaskRedux from "./src/feature/timeTest/timeTest.reducer";
+import dateTaskRedux from "./src/feature/dateTest/dateTest.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     setMyList: setMyList,
     setPriorityTask: setPriorityTask,
     timeTaskRedux: timeTaskRedux,
+    dateTaskRedux: dateTaskRedux,
   },
 });
 

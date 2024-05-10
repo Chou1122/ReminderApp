@@ -20,6 +20,8 @@ import { RootState } from "../../../store";
 import TimeOpenTabTask from "./timeOpenTabTask";
 import TimeTaskBox from "./timeTaskBox";
 
+import DateOpenTabTask from "./dateOpenTabTask";
+
 import {
   actionCloseTab,
   actionOpenTab,
@@ -92,8 +94,6 @@ export default function SettingDetailTaskTab(myProp: {
   const doneOnPress = () => {
     dispatch(actionCloseTab("settingDetailTaskTab"));
   };
-  
-  console.log(103);
 
   const priorityOnPress = () => {
     dispatch(actionCloseTab("newTaskDetailTab"));
@@ -211,34 +211,7 @@ export default function SettingDetailTaskTab(myProp: {
         </View>
 
         <View className="flex-row w-full pr-5 pl-5">
-          <View className="flex-row h-fit flex-wrap w-full bg-white rounded-t-2xl">
-            <View className="flex-row h-[60] w-full">
-              <View className="h-[60] w-[20%] justify-center items-center">
-                <View
-                  className="h-[56%] aspect-square rounded-lg justify-center items-center"
-                  style={{ backgroundColor: "#EB4D3D" }}
-                >
-                  <Ionicons
-                    name="calendar-outline"
-                    color="white"
-                    size={24}
-                  ></Ionicons>
-                </View>
-              </View>
-
-              <View className="flex-row justify-between items-center h-[60] w-[80%] border-b-2 border-gray-200 pr-5">
-                <View className="flex-row justify-between items-center h-[60] w-full">
-                  <View className="h-full w-fit justify-center">
-                    <Text className="font-medium text-base">Date</Text>
-                  </View>
-
-                  <View className="h-full w-fit justify-center items-center">
-                    {renderSwitchToggle(dateState, toggleDate)}
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
+          <DateOpenTabTask></DateOpenTabTask>
         </View>
 
         <View className="flex-row w-full pr-5 pl-5">
