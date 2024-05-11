@@ -201,6 +201,15 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
         </View>
       )}
 
+      {openTabList.priorityTaskTab == true && (
+        <View
+          className="flex-row h-full w-full absolute bottom-[0]"
+          style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+        >
+          <PriorityTaskTab navigation={myProp.navigation} indexKey={indexList}></PriorityTaskTab>
+        </View>
+      )}
+
       {openTabList.settingDetailTaskTab == true && (
         <View
           className="flex-row h-full w-full absolute bottom-[0]"

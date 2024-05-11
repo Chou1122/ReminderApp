@@ -1,7 +1,7 @@
 import { Switch, Text, TouchableOpacity, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import TimeOpenTabTask from "./timeOpenTabTask";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { actionTurnTimeTask, actionSetUseTimeTask } from "../../feature/timeTest/timeTest.reducer";
@@ -14,6 +14,10 @@ export default function TimeTaskBox() {
       );
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+      dispatch(actionTurnTimeTask(false));
+    },[])
 
     const timeOnPress = () => {
         dispatch(actionTurnTimeTask(!timeStore.openTimeTask));

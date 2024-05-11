@@ -21,6 +21,8 @@ import {
   actionOpenTab,
 } from "../../feature/opentab/opentab.reducer";
 import { actionAddTask } from "../../feature/allListRedux/myList.reducer";
+import DateOpenTabTask from "../DetailTab/dateOpenTabTask";
+import TimeTaskBox from "../DetailTab/timeTaskBox";
 
 export default function NewTaskDetailTab(myProp: {
   navigation: any;
@@ -169,54 +171,12 @@ export default function NewTaskDetailTab(myProp: {
 
         <View className="w-full h-[24]"></View>
 
-        <View className="h-[120] w-full pl-5 pr-5">
-          <View className="h-full w-full bg-white rounded-2xl">
-            <View className="flex-row h-[50%] w-full ">
-              <View className="h-full w-[20%] justify-center items-center">
-                <View
-                  className="h-[56%] aspect-square rounded-lg justify-center items-center"
-                  style={{ backgroundColor: "#EB4D3D" }}
-                >
-                  <Ionicons
-                    name="calendar-outline"
-                    color="white"
-                    size={24}
-                  ></Ionicons>
-                </View>
-              </View>
+        <View className="flex-row w-full pr-5 pl-5">
+          <DateOpenTabTask></DateOpenTabTask>
+        </View>
 
-              <View className="flex-row justify-between items-center h-full w-[80%] border-b-2 border-gray-200 pr-5">
-                <View className="h-full w-fit justify-center">
-                  <Text className="font-medium text-base">Date</Text>
-                </View>
-
-                <View className="h-full w-fit justify-center items-center">
-                  {renderSwitchToggle(dateState, toggleDate)}
-                </View>
-              </View>
-            </View>
-
-            <View className="flex-row h-[50%] w-full ">
-              <View className="h-full w-[20%] justify-center items-center">
-                <View
-                  className="h-[56%] aspect-square rounded-lg justify-center items-center"
-                  style={{ backgroundColor: "#3478F6" }}
-                >
-                  <Ionicons name="time" color="white" size={24}></Ionicons>
-                </View>
-              </View>
-
-              <View className="flex-row justify-between items-center h-full w-[80%] pr-5">
-                <View className="h-full w-fit justify-center">
-                  <Text className="font-medium text-base">Time</Text>
-                </View>
-
-                <View className="h-full w-fit justify-center items-center">
-                  {renderSwitchToggle(timeState, toggleTime)}
-                </View>
-              </View>
-            </View>
-          </View>
+        <View className="flex-row w-full pr-5 pl-5">
+          <TimeTaskBox></TimeTaskBox>
         </View>
 
         <View className="flex-row h-[60] w-full pl-5 pr-5 mt-[16]">

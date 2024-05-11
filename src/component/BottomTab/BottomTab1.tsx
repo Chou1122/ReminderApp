@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { actionOpenTab } from "../../feature/opentab/opentab.reducer";
 import { actionChangeColor } from "../../feature/setColorTag/setColorTag.reducer";
+import { actionSetOpenNewReminderTab } from "../../feature/openNewReminder/openNewReminder.reducer";
 
 export default function BottomTab1() {
   const dispatch = useDispatch();
@@ -26,9 +27,18 @@ export default function BottomTab1() {
     dispatch(actionChangeColor({ tagName: "doneBtnColor", color: "#6B7280" }));
   };
 
+  const newReminderOnPress = () => {
+    dispatch(actionSetOpenNewReminderTab(true));
+  };
+
   return (
     <>
-      <TouchableOpacity className="flex-row h-full w-[54%] justify-between items-center">
+      <TouchableOpacity
+        className="flex-row h-full w-[54%] justify-between items-center"
+        onPress={() => {
+          newReminderOnPress();
+        }}
+      >
         <View
           className="w-[16%] aspect-square justify-center items-center rounded-full"
           style={{ backgroundColor: "#3B82F6" }}

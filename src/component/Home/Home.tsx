@@ -17,6 +17,8 @@ import NotiBox from "../NotiBox/NotiBox";
 import ListBox from "../ListBox/ListBox";
 import BottomTab1 from "../BottomTab/BottomTab1";
 import NewListTab from "../NewTab/NewListTab";
+import NewTaskAloneTab from "../NewTab/NewTaskAloneTab";
+import NewTaskDetailAloneTab from "../NewTab/NewTaskDetailAloneTab";
 
 import { notiBoxes } from "./allArrHome";
 
@@ -31,9 +33,9 @@ export default function Home() {
     (state: RootState) => state.openTab.openTabList
   );
 
-  const myListArr:any = useSelector(
-    (state:RootState) => state.setMyList.myListArr
-  )
+  const myListArr: any = useSelector(
+    (state: RootState) => state.setMyList.myListArr
+  );
 
   const dispatch = useDispatch();
 
@@ -49,10 +51,10 @@ export default function Home() {
     ));
   };
 
-  const navigation:any = useNavigation();
+  const navigation: any = useNavigation();
 
   const renderMyList = () => {
-    return myListArr.map((item:any, index:any) => (
+    return myListArr.map((item: any, index: any) => (
       <ListBox
         key={index}
         colorBox={item.colorBox}
@@ -130,13 +132,17 @@ export default function Home() {
       </View>
 
       {openTabList.newListTab == true && (
-          <View
-            className="flex-row h-full w-full absolute bottom-[0]"
-            style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
-          >
-            <NewListTab></NewListTab>
-          </View>
-        )}
+        <View
+          className="flex-row h-full w-full absolute bottom-[0]"
+          style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
+        >
+          <NewListTab></NewListTab>
+        </View>
+      )}
+
+      <NewTaskAloneTab></NewTaskAloneTab>
+      <NewTaskDetailAloneTab></NewTaskDetailAloneTab>
+      
     </>
   );
 }

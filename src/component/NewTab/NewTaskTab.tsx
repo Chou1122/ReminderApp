@@ -16,6 +16,8 @@ import { RootState } from "../../../store";
 
 import { acitonSetTitleNewTask, actionCloseTab, actionOpenTab } from "../../feature/opentab/opentab.reducer";
 import { actionAddTask } from "../../feature/allListRedux/myList.reducer";
+import { actionSetUseDateTask } from "../../feature/dateTest/dateTest.reducer";
+import { actionSetUseTimeTask } from "../../feature/timeTest/timeTest.reducer";
 
 export default function NewTaskTab(myProp: { navigation: any, indexKey: number }) {
   const myListArr = useSelector(
@@ -49,6 +51,9 @@ export default function NewTaskTab(myProp: { navigation: any, indexKey: number }
   };
 
   const detailOnPress = () => {
+
+    dispatch(actionSetUseDateTask(false));
+    dispatch(actionSetUseTimeTask(false));
 
     dispatch(actionCloseTab("newTaskTab"));
     dispatch(actionCloseTab('priorityTaskTab'));

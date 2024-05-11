@@ -6,12 +6,17 @@ import { RootState } from "../../../store";
 import DateTaskBox from "./dateTaskBox";
 
 import { actionSetUseDateTask, actionTurnDateTask } from "../../feature/dateTest/dateTest.reducer";
+import { useEffect } from "react";
 
 
 export default function DateOpenTabTask() {
     const dateStore = useSelector(
         (state: RootState) => state.dateTaskRedux
     );
+
+    useEffect(() => {
+      dispatch(actionTurnDateTask(false));
+    },[])
 
     const dispatch = useDispatch();
 

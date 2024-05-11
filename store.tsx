@@ -6,6 +6,8 @@ import setMyList from "./src/feature/allListRedux/myList.reducer";
 import setPriorityTask from "./src/feature/setPriorityTask/setPriorityTask.reducer";
 import timeTaskRedux from "./src/feature/timeTest/timeTest.reducer";
 import dateTaskRedux from "./src/feature/dateTest/dateTest.reducer";
+import openNewReminderRedux from "./src/feature/openNewReminder/openNewReminder.reducer";
+import openNewReminderDetailRedux from "./src/feature/openNewReminderDetail/openNewReminderDetail.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ export const store = configureStore({
     setPriorityTask: setPriorityTask,
     timeTaskRedux: timeTaskRedux,
     dateTaskRedux: dateTaskRedux,
+    openNewReminderRedux: openNewReminderRedux,
+    openNewReminderDetailRedux: openNewReminderDetailRedux,
   },
 });
 
