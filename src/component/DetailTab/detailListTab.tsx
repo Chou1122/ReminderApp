@@ -24,7 +24,9 @@ import SettingDetailTaskTab from "./settingDetailTaskTab";
 
 import { actionDeleteTask } from "../../feature/allListRedux/myList.reducer";
 import { actionClearCheckTask } from "../../feature/allListRedux/myList.reducer";
+import { actionSetOpenTabInfoList } from "../../feature/openInfoList/openInfoList.reducer";
 import CPriorityTaskTab from "../NewTab/cPriorityTaskTab";
+import InfoListTab from "./infoListTab";
 
 export default function DetailListTab(myProp: { navigation: any; route: any }) {
   const openTabList = useSelector(
@@ -97,6 +99,10 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
     dispatch(actionDeleteTask(indexList));
   };
 
+  const detailOnPress = () => {
+    dispatch(actionSetOpenTabInfoList(true));
+  }
+
   return (
     <>
       <View className="h-full w-full bg-white pt-[28]">
@@ -125,7 +131,9 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           </View>
 
           <View className="h-full w-24 justify-center items-end pr-5">
-            <TouchableOpacity className="h-[60%] aspect-square justify-center items-center rounded-full">
+            <TouchableOpacity className="h-[60%] aspect-square justify-center items-center rounded-full"
+              onPress = {()=>{detailOnPress()}}
+            >
               <Ionicons
                 name="ellipsis-horizontal-circle"
                 color="#3376F2"
@@ -218,6 +226,8 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           <SettingDetailTaskTab navigation={myProp.navigation} indexKey={indexList} taskKey={taskKeyOpen}></SettingDetailTaskTab>
         </View>
       )}
+
+      <InfoListTab indexList={indexList} navigation={navigation}></InfoListTab>
     </>
   );
 }

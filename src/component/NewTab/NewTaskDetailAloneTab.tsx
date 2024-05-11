@@ -23,6 +23,7 @@ import TimeTaskBox from "../DetailTab/timeTaskBox";
 
 import { actionSetOpenNewReminderDetailTab } from "../../feature/openNewReminderDetail/openNewReminderDetail.reducer";
 import { actionSetOpenNewReminderTab } from "../../feature/openNewReminder/openNewReminder.reducer";
+import { actionSetC2PriorityTaskOpen } from "../../feature/c2PriorityTaskOpen/c2PriorityTaskOpen.reducer";
 
 export default function NewTaskDetailAloneTab() {
   const titleNewTask = useSelector(
@@ -51,9 +52,8 @@ export default function NewTaskDetailAloneTab() {
   };
 
   const priorityOnPress = () => {
-    //   dispatch(actionCloseTab('newTaskDetailTab'));
-    //   dispatch(actionCloseTab('newTaskTab'));
-    //   dispatch(actionOpenTab('priorityTaskTab'));
+      dispatch(actionCloseTab('newTaskDetailAloneTab'));
+      dispatch(actionSetC2PriorityTaskOpen(true));
   };
 
   const toggleTags = () => {

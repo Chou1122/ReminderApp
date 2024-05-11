@@ -8,6 +8,8 @@ import timeTaskRedux from "./src/feature/timeTest/timeTest.reducer";
 import dateTaskRedux from "./src/feature/dateTest/dateTest.reducer";
 import openNewReminderRedux from "./src/feature/openNewReminder/openNewReminder.reducer";
 import openNewReminderDetailRedux from "./src/feature/openNewReminderDetail/openNewReminderDetail.reducer";
+import openInfoListRedux from "./src/feature/openInfoList/openInfoList.reducer";
+import c2PriorityTaskOpenRedux from "./src/feature/c2PriorityTaskOpen/c2PriorityTaskOpen.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +21,8 @@ export const store = configureStore({
     dateTaskRedux: dateTaskRedux,
     openNewReminderRedux: openNewReminderRedux,
     openNewReminderDetailRedux: openNewReminderDetailRedux,
+    openInfoListRedux: openInfoListRedux,
+    c2PriorityTaskOpenRedux: c2PriorityTaskOpenRedux,
   },
 });
 

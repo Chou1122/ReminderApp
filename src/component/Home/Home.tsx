@@ -19,6 +19,7 @@ import BottomTab1 from "../BottomTab/BottomTab1";
 import NewListTab from "../NewTab/NewListTab";
 import NewTaskAloneTab from "../NewTab/NewTaskAloneTab";
 import NewTaskDetailAloneTab from "../NewTab/NewTaskDetailAloneTab";
+import CPriorityTaskTab from "../NewTab/cPriorityTaskTab";
 
 import { notiBoxes } from "./allArrHome";
 
@@ -27,6 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCloseTab } from "../../feature/opentab/opentab.reducer";
 import { actionChangeColor } from "../../feature/setColorTag/setColorTag.reducer";
 import { RootState } from "../../../store";
+import C2PriorityTaskTab from "../NewTab/c2PriorityTask";
 
 export default function Home() {
   const openTabList = useSelector(
@@ -142,6 +144,7 @@ export default function Home() {
 
       <NewTaskAloneTab></NewTaskAloneTab>
       <NewTaskDetailAloneTab></NewTaskDetailAloneTab>
+      <C2PriorityTaskTab></C2PriorityTaskTab>
       
     </>
   );

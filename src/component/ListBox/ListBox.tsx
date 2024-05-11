@@ -11,6 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { actionCloseTab } from "../../feature/opentab/opentab.reducer";
+import { actionSetOpenTabInfoList } from "../../feature/openInfoList/openInfoList.reducer";
 
 export default function ListBox(myProp: {
   colorBox: any;
@@ -30,6 +31,8 @@ export default function ListBox(myProp: {
     dispatch(actionCloseTab('priorityTaskTab'));
     dispatch(actionCloseTab('cPriorityTaskTab'));
     dispatch(actionCloseTab('settingDetailTaskTab'));
+
+    dispatch(actionSetOpenTabInfoList(false));
     
     navigation.navigate("DetailListTab",{
         indexList: myProp.indexKey,
