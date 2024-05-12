@@ -15,10 +15,23 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 
-import { actionSetUseDateTask, actionSetDateTask, actionTurnDateTask } from "../../feature/dateTest/dateTest.reducer";
-import { actionSetUseTimeTask, actionSetHourTask, actionSetMinuteTask, actionTurnTimeTask } from "../../feature/timeTest/timeTest.reducer";
+import {
+  actionSetUseDateTask,
+  actionSetDateTask,
+  actionTurnDateTask,
+} from "../../feature/dateTest/dateTest.reducer";
+import {
+  actionSetUseTimeTask,
+  actionSetHourTask,
+  actionSetMinuteTask,
+  actionTurnTimeTask,
+} from "../../feature/timeTest/timeTest.reducer";
 import { actionSetOpenNewReminderTab } from "../../feature/openNewReminder/openNewReminder.reducer";
 import { actionSetOpenNewReminderDetailTab } from "../../feature/openNewReminderDetail/openNewReminderDetail.reducer";
+import { listColor, listIcon } from "./allArrList";
+import { actionAddList } from "../../feature/allListRedux/myList.reducer";
+
+import { actionAddListAndTask } from "../../feature/allListRedux/myList.reducer";
 
 export default function NewTaskAloneTab() {
   const openNewReminderTab = useSelector(
@@ -26,15 +39,15 @@ export default function NewTaskAloneTab() {
   );
 
   const tmpToday = new Date(Date.now());
-  const today = format(tmpToday,'dd/MM/yyyy');
+  const today = format(tmpToday, "dd/MM/yyyy");
 
-//   useEffect(() => {
-//     dispatch(actionSetDateTask(today));
-//     dispatch(actionTurnDateTask(false));
-//     dispatch(actionSetHourTask(12));
-//     dispatch(actionSetMinuteTask(5));
-//     dispatch(actionTurnTimeTask(false));
-//   },[])
+  //   useEffect(() => {
+  //     dispatch(actionSetDateTask(today));
+  //     dispatch(actionTurnDateTask(false));
+  //     dispatch(actionSetHourTask(12));
+  //     dispatch(actionSetMinuteTask(5));
+  //     dispatch(actionTurnTimeTask(false));
+  //   },[])
 
   const [listNameState, setListNameState] = useState("");
   const [titleState, setTitleState] = useState("");
@@ -45,6 +58,11 @@ export default function NewTaskAloneTab() {
   const cancelOnPress = () => {
     dispatch(actionSetOpenNewReminderTab(false));
   };
+
+  useEffect(() => {
+    setTitleState("");
+    setListNameState("");
+  }, [openNewReminderTab]);
 
   const detailOnPress = () => {
     dispatch(actionSetUseDateTask(false));
@@ -62,7 +80,26 @@ export default function NewTaskAloneTab() {
   };
 
   const addOnPress = () => {
-    if (titleState == "") return;
+    if (titleState == "" || listNameState == "") return;
+
+    dispatch(
+      actionAddListAndTask({
+        newList: {
+          colorBox: listColor[0],
+          iconBox: listIcon[0],
+          textBox: listNameState,
+          numberBox: 1,
+        },
+        newTask: {
+          isNew: true,
+          nameTask: titleState,
+          keyTask: 0,
+          isChecked: false,
+        },
+      })
+    );
+
+    dispatch(actionSetOpenNewReminderTab(false));
   };
 
   const handleListNameChange = (text: string) => {
@@ -118,7 +155,9 @@ export default function NewTaskAloneTab() {
                   >
                     <Text
                       className={`${
-                        titleState == "" ? "text-gray-400" : "text-blue-400"
+                        titleState == "" || listNameState == ""
+                          ? "text-gray-400"
+                          : "text-blue-400"
                       } font-semibold text-base`}
                     >
                       Add

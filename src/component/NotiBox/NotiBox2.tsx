@@ -9,23 +9,36 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store";
+
+import { actionCloseGroup, actionOpenGroup } from "../../feature/checkGroup/checkGroup.reducer";
 
 export default function NotiBox2(myProp: {
   colorBox: any;
   iconBox: any;
   numberBox: any;
   textBox: string;
-  isCheck: string;
+  isCheck: boolean;
+  indexKey: number;
   isLast: string;
 }) {
-  const [checked, setChecked] = useState(myProp.isCheck);
+  const dispatch = useDispatch();
+
+  const boxChecked = useSelector(
+    (state: RootState) => state.checkGroupRedux.checkGroup[myProp.indexKey]
+  )
+
 
    // Thay doi trang thai checked
    const checkedOnPress = () => {
-    setChecked(() => {
-        if (checked == 'true') return 'false';
-        else return 'true';
-    });
+    
+        if (boxChecked == true) {
+          dispatch(actionCloseGroup(myProp.indexKey));
+        } else {
+          dispatch(actionOpenGroup(myProp.indexKey));
+        }
+
   }
 
   return (
@@ -34,12 +47,12 @@ export default function NotiBox2(myProp: {
       <TouchableOpacity
         className=" flex w-[7.4%] aspect-square rounded-full ml-4 bg-white border-2 justify-center items-center"
         style={{
-          backgroundColor: `${checked === "true" ? "#3B82FF" : "#fff"}`,
-          borderColor: `${checked === "true" ? "#3B82FF" : "#9CA3AF"}`,
+          backgroundColor: `${boxChecked === true ? "#3B82FF" : "#fff"}`,
+          borderColor: `${boxChecked=== true ? "#3B82FF" : "#9CA3AF"}`,
         }}
         onPress={() => {checkedOnPress()}}
       >
-        {checked == "true" && (
+        {boxChecked == true && (
           <Ionicons name="checkmark-outline" size={24} color="white"></Ionicons>
         )}
       </TouchableOpacity>

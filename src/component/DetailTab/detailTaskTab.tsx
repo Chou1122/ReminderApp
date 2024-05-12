@@ -16,7 +16,7 @@ import { RootState } from "../../../store";
 import BottomTab1 from "../BottomTab/BottomTab1";
 import BottomTab3 from "../BottomTab/BottomTab3";
 
-import { actionCheckTask } from "../../feature/allListRedux/myList.reducer";
+// import { actionCheckTask } from "../../feature/allListRedux/myList.reducer";
 import { actionOpenTab, actionSetIndexTaskOpened } from "../../feature/opentab/opentab.reducer";
 
 export default function DetailTaskTab(myProp: {
@@ -50,7 +50,7 @@ export default function DetailTaskTab(myProp: {
   }
 
   const checkOnPress = () => {
-    dispatch(actionCheckTask({ indexList, indexTask }));
+    // dispatch(actionCheckTask({ indexList, indexTask }));
   };
 
   return (

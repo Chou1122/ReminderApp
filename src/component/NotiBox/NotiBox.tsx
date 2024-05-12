@@ -5,7 +5,7 @@ export default function NotiBox(mProp: {colorBox: any, iconBox: any, numberBox: 
     return (
         <TouchableOpacity className='flex-row h-28  w-[48%] bg-white rounded-xl items-center justify-around mb-4'>
           <View className='h-[80%] w-[68%] justify-between'>
-            <View className={`h-[48%] aspect-square rounded-full ml-1 justify-center items-center`} 
+            <View className={`h-11 aspect-square rounded-full ml-1 justify-center items-center`} 
              style={{ backgroundColor: mProp.colorBox }}
             >
               <Ionicons name={mProp.iconBox} size={24} color="white"></Ionicons>

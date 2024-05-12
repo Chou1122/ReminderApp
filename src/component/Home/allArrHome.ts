@@ -1,59 +1,44 @@
 export const notiBoxes:Array<any>= [
     {
+      keyBox: 0,
       colorBox: "#2563EB",
       iconBox: "calendar-number-outline",
       textBox: "Today",
       numberBox: 0,
+      isCheck: true,
     },
     {
+      keyBox: 1,
       colorBox: "#DC2626",
       iconBox: "calendar-outline",
       textBox: "Scheduled",
       numberBox: 0,
+      isCheck: true,
     },
     {
+      keyBox: 2,
       colorBox: "#4B5563",
       iconBox: "file-tray-outline",
       textBox: "All",
       numberBox: 12,
+      isCheck: true,
     },
     {
+      keyBox: 3,
       colorBox: "#D97706",
       iconBox: "flag-outline",
       textBox: "Flagged",
       numberBox: 0,
+      isCheck: true,
     },
-  ];
-
- export const notiBoxes2:Array<any> = [
     {
-      colorBox: "#2563EB",
-      iconBox: "calendar-number-outline",
-      textBox: "Today",
+      keyBox: 4,
+      colorBox: "#65C466",
+      iconBox: "person",
+      textBox: "Assigned to Me",
       numberBox: 0,
-      isCheck: "true",
+      isCheck: false,
     },
-    {
-      colorBox: "#DC2626",
-      iconBox: "calendar-outline",
-      textBox: "Scheduled",
-      numberBox: 0,
-      isCheck: "true",
-    },
-    {
-      colorBox: "#4B5563",
-      iconBox: "file-tray-outline",
-      textBox: "All",
-      numberBox: 12,
-      isCheck: "true",
-    },
-    {
-      colorBox: "#D97706",
-      iconBox: "flag-outline",
-      textBox: "Flagged",
-      numberBox: 0,
-      isCheck: "false",
-    }
   ];
 
   export const myListArr:Array<any> = [

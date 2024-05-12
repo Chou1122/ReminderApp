@@ -9,6 +9,8 @@ export const actionDeleteTask = createAction<any>('setMyList/setTask/deleteTask'
 export const actionAddTask = createAction<any>('setMyList/setTask/addTask');
 export const actionClearCheckTask = createAction<any>('setMyList/setTask/clearCheckTask');
 
+export const actionAddListAndTask = createAction<any>('setMyList/addListAndTask');
+
 const setMyList = createReducer(initialState, builder => {
     builder.addCase(actionAddList, (state: any, action: any) => {
         state['countKey']++;
@@ -19,10 +21,25 @@ const setMyList = createReducer(initialState, builder => {
           countTaskKey: -1,
           taskListArr: []
         }
+    }).addCase(actionAddListAndTask, (state: any, action: any) => {
+      const newAction = action.payload;
+      const newList = newAction.newList;
+      const newTask = newAction.newTask;
+      state['countKey']++;
+      state['myListArr'].push(newList);
+      state['myListArr'][state['myListArr'].length-1]['indexKey'] = state['countKey'];
+
+      state['myListArr'][state['myListArr'].length-1]['taskList'] = {
+        countTaskKey: 0,
+        taskListArr: [
+          newTask,
+        ]
+      }
     }).addCase(actionDeleteList, (state: any, action: any) => {
       const indexToDelete = action.payload;
       state['myListArr'] = state['myListArr'].filter((item: any) => item.indexKey !== indexToDelete);
-    }).addCase(actionCheckTask, (state: any, action: any) => {
+    })
+    .addCase(actionCheckTask, (state: any, action: any) => {
       const myAction:any = action.payload;
 
       for (let i = 0; i < state['myListArr'].length; i++) {
@@ -37,7 +54,8 @@ const setMyList = createReducer(initialState, builder => {
         }
       }
 
-    }).addCase(actionDeleteTask, (state: any, action: any) => {
+    })
+    .addCase(actionDeleteTask, (state: any, action: any) => {
       const indexList:any = action.payload;
       
       for (let i = 0; i < state['myListArr'].length; i++) {
@@ -49,7 +67,8 @@ const setMyList = createReducer(initialState, builder => {
         }
       }
       
-    }).addCase(actionClearCheckTask, (state:any, action:any) => {
+    })
+    .addCase(actionClearCheckTask, (state:any, action:any) => {
       const indexList:any = action.payload;
 
       for (let i = 0; i < state['myListArr'].length; i++) {
@@ -62,7 +81,8 @@ const setMyList = createReducer(initialState, builder => {
         }
       }
 
-    }).addCase(actionAddTask, (state:any, action: any) => {
+    })
+    .addCase(actionAddTask, (state:any, action: any) => {
       const myAction:any = action.payload;
 
       const indexList = myAction.indexList;

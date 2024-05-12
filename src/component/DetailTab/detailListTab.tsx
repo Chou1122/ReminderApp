@@ -51,6 +51,9 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
   const myListArr = useSelector(
     (state: RootState) => state.setMyList.myListArr
   );
+  const listTaskStore = useSelector(
+    (state:RootState) => state.taskDetailRedux.listTask
+  )
   const [myListTask, setMyListTask] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -58,12 +61,22 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
   }, []);
 
   useEffect(() => {
+    
     for (let i = 0; i < myListArr.length; ++i) {
       if (indexList == myListArr[i].indexKey) {
         setMyListTask(myListArr[i].taskList.taskListArr);
         break;
       }
     }
+
+    // const tmpTaskList:Array<any> = [];
+    // for (let i = 0; i < listTaskStore.length; ++i) {
+    //   if (listTaskStore[i]['keyList'] == indexList) {
+    //     tmpTaskList.push(listTaskStore[i]);
+    //   }
+    // }
+    // console.log(tmpTaskList);
+    // setMyListTask(tmpTaskList);
   });
 
   const [countChecked, setCountChecked] = useState(() => {

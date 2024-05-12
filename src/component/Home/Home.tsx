@@ -39,18 +39,28 @@ export default function Home() {
     (state: RootState) => state.setMyList.myListArr
   );
 
+  const boxChecked = useSelector(
+    (state: RootState) => state.checkGroupRedux.checkGroup
+  );
+
   const dispatch = useDispatch();
 
   const renderNotiBoxes = () => {
-    return notiBoxes.map((box, index) => (
-      <NotiBox
-        key={index}
-        colorBox={box.colorBox}
-        iconBox={box.iconBox}
-        textBox={box.textBox}
-        numberBox={box.numberBox}
-      />
-    ));
+    return notiBoxes.map((box, index) => {
+      return (
+        <>
+          {boxChecked[box.keyBox] && (
+            <NotiBox
+              key={index}
+              colorBox={box.colorBox}
+              iconBox={box.iconBox}
+              textBox={box.textBox}
+              numberBox={box.numberBox}
+            />
+          )}
+        </>
+      );
+    });
   };
 
   const navigation: any = useNavigation();
@@ -145,7 +155,6 @@ export default function Home() {
       <NewTaskAloneTab></NewTaskAloneTab>
       <NewTaskDetailAloneTab></NewTaskDetailAloneTab>
       <C2PriorityTaskTab></C2PriorityTaskTab>
-      
     </>
   );
 }

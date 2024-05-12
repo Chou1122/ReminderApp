@@ -10,6 +10,8 @@ import openNewReminderRedux from "./src/feature/openNewReminder/openNewReminder.
 import openNewReminderDetailRedux from "./src/feature/openNewReminderDetail/openNewReminderDetail.reducer";
 import openInfoListRedux from "./src/feature/openInfoList/openInfoList.reducer";
 import c2PriorityTaskOpenRedux from "./src/feature/c2PriorityTaskOpen/c2PriorityTaskOpen.reducer";
+import checkGroupRedux from "./src/feature/checkGroup/checkGroup.reducer";
+import taskDetailRedux from "./src/feature/taskDetailRedux/taskDetailRedux.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +25,8 @@ export const store = configureStore({
     openNewReminderDetailRedux: openNewReminderDetailRedux,
     openInfoListRedux: openInfoListRedux,
     c2PriorityTaskOpenRedux: c2PriorityTaskOpenRedux,
+    checkGroupRedux: checkGroupRedux,
+    taskDetailRedux: taskDetailRedux,
   },
 });
 

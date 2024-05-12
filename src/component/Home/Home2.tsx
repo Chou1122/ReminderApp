@@ -16,7 +16,7 @@ import BottomTab2 from "../BottomTab/BottomTab2";
 import NewGroupTab from "../NewTab/NewGroupTab";
 import NewListTab from "../NewTab/NewListTab";
 
-import { notiBoxes2 } from "./allArrHome";
+import { notiBoxes } from "./allArrHome";
 
 import { useState } from "react";
 import ListBox2 from "../ListBox/ListBox2";
@@ -42,7 +42,7 @@ export default function Home2() {
   const navigation:any = useNavigation();
 
   const renderNotiBoxes2 = () => {
-    return notiBoxes2.map((box, index) => (
+    return notiBoxes.map((box, index) => (
       <NotiBox2
         key={index}
         colorBox={box.colorBox}
@@ -50,7 +50,8 @@ export default function Home2() {
         textBox={box.textBox}
         numberBox={box.numberBox}
         isCheck={box.isCheck}
-        isLast={index === notiBoxes2.length - 1 ? "true" : "false"}
+        indexKey={box.keyBox}
+        isLast={index === notiBoxes.length - 1 ? "true" : "false"}
       />
     ));
   };
