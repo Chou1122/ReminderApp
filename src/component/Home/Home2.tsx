@@ -126,7 +126,7 @@ export default function Home2() {
           </View>
 
           {/* View ao de tao khoang trong */}
-          <View className="h-[64] w-full"></View>
+          <View className="h-24 w-full"></View>
         </ScrollView>
 
       </View>

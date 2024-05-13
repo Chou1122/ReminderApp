@@ -81,7 +81,7 @@ export default function AllGroupDetail() {
           </View>
 
           <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[80] w-full border-b-2 border-gray-200 justify-start">
+            <View className="flex-row h-fit w-full border-b-2 border-gray-200 justify-start pb-1">
               <TouchableOpacity className="h-full w-[12%]">
                 <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
               </TouchableOpacity>
@@ -109,7 +109,7 @@ export default function AllGroupDetail() {
           </View>
 
           <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[60] w-full border-b-2 border-gray-200 justify-start">
+            <View className="flex-row h-fit w-full border-b-2 border-gray-200 justify-start">
               <TouchableOpacity className="h-full w-[12%]">
                 <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
               </TouchableOpacity>

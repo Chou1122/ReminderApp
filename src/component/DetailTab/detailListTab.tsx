@@ -27,6 +27,7 @@ import { actionClearCheckTask } from "../../feature/allListRedux/myList.reducer"
 import { actionSetOpenTabInfoList } from "../../feature/openInfoList/openInfoList.reducer";
 import CPriorityTaskTab from "../NewTab/cPriorityTaskTab";
 import InfoListTab from "./infoListTab";
+import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
 
 export default function DetailListTab(myProp: { navigation: any; route: any }) {
   const openTabList = useSelector(
@@ -52,8 +53,8 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
     (state: RootState) => state.setMyList.myListArr
   );
   const listTaskStore = useSelector(
-    (state:RootState) => state.taskDetailRedux.listTask
-  )
+    (state: RootState) => state.taskDetailRedux.listTask
+  );
   const [myListTask, setMyListTask] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -61,7 +62,6 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
   }, []);
 
   useEffect(() => {
-    
     for (let i = 0; i < myListArr.length; ++i) {
       if (indexList == myListArr[i].indexKey) {
         setMyListTask(myListArr[i].taskList.taskListArr);
@@ -109,12 +109,25 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
     if (countChecked == 0) {
       return;
     }
+
+    for (let i = 0; i < myListArr.length; i++) {
+      if (indexList == myListArr[i]['indexKey']) {
+
+        for (let j = 0; j < myListArr[i]['taskList']['taskListArr'].length; j++) {
+          if (myListArr[i]['taskList']['taskListArr'][j]['isFlagged'] == true && myListArr[i]['taskList']['taskListArr'][j]['isChecked'] == true) {
+            dispatch(actionHandleFlaggedTask({indexList: indexList, indexTask:myListArr[i]['taskList']['taskListArr'][j]['keyTask']}))
+          }
+        }
+        break;
+      }
+    }
+
     dispatch(actionDeleteTask(indexList));
   };
 
   const detailOnPress = () => {
     dispatch(actionSetOpenTabInfoList(true));
-  }
+  };
 
   return (
     <>
@@ -144,8 +157,11 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           </View>
 
           <View className="h-full w-24 justify-center items-end pr-5">
-            <TouchableOpacity className="h-[60%] aspect-square justify-center items-center rounded-full"
-              onPress = {()=>{detailOnPress()}}
+            <TouchableOpacity
+              className="h-[60%] aspect-square justify-center items-center rounded-full"
+              onPress={() => {
+                detailOnPress();
+              }}
             >
               <Ionicons
                 name="ellipsis-horizontal-circle"
@@ -200,7 +216,10 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           className="flex-row h-full w-full absolute bottom-[0]"
           style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         >
-          <NewTaskTab navigation={myProp.navigation} indexKey={indexList}></NewTaskTab>
+          <NewTaskTab
+            navigation={myProp.navigation}
+            indexKey={indexList}
+          ></NewTaskTab>
         </View>
       )}
 
@@ -209,7 +228,10 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           className="flex-row h-full w-full absolute bottom-[0]"
           style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         >
-          <NewTaskDetailTab navigation={myProp.navigation} indexKey={indexList}></NewTaskDetailTab>
+          <NewTaskDetailTab
+            navigation={myProp.navigation}
+            indexKey={indexList}
+          ></NewTaskDetailTab>
         </View>
       )}
 
@@ -218,7 +240,10 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           className="flex-row h-full w-full absolute bottom-[0]"
           style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         >
-          <CPriorityTaskTab navigation={myProp.navigation} indexKey={indexList}></CPriorityTaskTab>
+          <CPriorityTaskTab
+            navigation={myProp.navigation}
+            indexKey={indexList}
+          ></CPriorityTaskTab>
         </View>
       )}
 
@@ -227,18 +252,18 @@ export default function DetailListTab(myProp: { navigation: any; route: any }) {
           className="flex-row h-full w-full absolute bottom-[0]"
           style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
         >
-          <PriorityTaskTab navigation={myProp.navigation} indexKey={indexList}></PriorityTaskTab>
+          <PriorityTaskTab
+            navigation={myProp.navigation}
+            indexKey={indexList}
+          ></PriorityTaskTab>
         </View>
       )}
 
-      {openTabList.settingDetailTaskTab == true && (
-        <View
-          className="flex-row h-full w-full absolute bottom-[0]"
-          style={{ backgroundColor: "rgba(0,0,0,0.4)" }}
-        >
-          <SettingDetailTaskTab navigation={myProp.navigation} indexKey={indexList} taskKey={taskKeyOpen}></SettingDetailTaskTab>
-        </View>
-      )}
+      <SettingDetailTaskTab
+        navigation={myProp.navigation}
+        indexKey={indexList}
+        taskKey={taskKeyOpen}
+      ></SettingDetailTaskTab>
 
       <InfoListTab indexList={indexList} navigation={navigation}></InfoListTab>
     </>

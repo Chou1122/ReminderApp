@@ -16,8 +16,9 @@ import { RootState } from "../../../store";
 import BottomTab1 from "../BottomTab/BottomTab1";
 import BottomTab3 from "../BottomTab/BottomTab3";
 
-// import { actionCheckTask } from "../../feature/allListRedux/myList.reducer";
+import { actionCheckTask, actionSetFlagTask } from "../../feature/allListRedux/myList.reducer";
 import { actionOpenTab, actionSetIndexTaskOpened } from "../../feature/opentab/opentab.reducer";
+import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
 
 export default function DetailTaskTab(myProp: {
   indexList: any;
@@ -38,6 +39,8 @@ export default function DetailTaskTab(myProp: {
     }
   }
 
+  const isFlagged = myListTask[posTask]["isFlagged"];
+
   const nameTask = myListTask[posTask].nameTask;
   const isChecked = myListTask[posTask].isChecked;
   const isNew = myListTask[posTask].isNew;
@@ -50,8 +53,13 @@ export default function DetailTaskTab(myProp: {
   }
 
   const checkOnPress = () => {
-    // dispatch(actionCheckTask({ indexList, indexTask }));
+    dispatch(actionCheckTask({ indexList, indexTask }));
   };
+
+  const flagOnPress = () => {
+    dispatch(actionSetFlagTask({ indexList, indexTask }));
+    dispatch(actionHandleFlaggedTask({indexList: indexList, indexTask: indexTask}));
+  }
 
   return (
     <TouchableOpacity className="flex-row h-16 w-full pl-5"
@@ -84,10 +92,20 @@ export default function DetailTaskTab(myProp: {
           </View>
         )}
 
-        <View className="h-full w-full justify-center">
+        <View className="h-full w-fit max-w-[70%] justify-center">
           <Text className="text-base">{nameTask}</Text>
         </View>
+
+
       </View>
+
+        <TouchableOpacity className="h-full w-fit justify-center absolute right-5 pl-2 pr-2"
+         onPress={() => {flagOnPress()}}
+        >
+          <View className='h-full w-full justify-center'>
+           <Ionicons name={`${isFlagged ? 'flag' : 'flag-outline'}`} size={24} color={'#F09A37'}></Ionicons>
+          </View>
+        </TouchableOpacity>
     </TouchableOpacity>
   );
 }

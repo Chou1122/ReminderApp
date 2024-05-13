@@ -15,24 +15,32 @@ export const initialState: any = {
               nameTask: 'Completed Reminder',
               keyTask: 0,
               isChecked: false,
+              isFlagged: false,
+              noteTask: '',
             },
             {
                 isNew: true,
                 nameTask: 'New Reminder',
                 keyTask: 1,
                 isChecked: true,
+                isFlagged: true,
+                noteTask: 'sample note for new reminder',
             },
             {
               isNew: false,
               nameTask: 'Sample Reminder',
               keyTask: 2,
               isChecked: false,
+              isFlagged: true,
+              noteTask: 'sample not for reminder',
           },
           {
             isNew: false,
             nameTask: 'Go to gym',
             keyTask: 3,
             isChecked: false,
+            isFlagged: true,
+            noteTask: 'this is note for gym',
           },
           ]
         }
@@ -51,12 +59,16 @@ export const initialState: any = {
               nameTask: 'Completed Reminder',
               keyTask: 0,
               isChecked: false,
+              isFlagged: false,
+              noteTask: '',
             },
             {
               isNew: false,
               nameTask: 'NotCompleted Reminder',
               keyTask: 1,
               isChecked: false,
+              isFlagged: false,
+              noteTask: '',
             }
           ]
         }
@@ -75,6 +87,8 @@ export const initialState: any = {
               nameTask: 'Completed Reminder',
               keyTask: 0,
               isChecked: false,
+              isFlagged: false,
+              noteTask: '',
             }
           ]
         }
@@ -93,6 +107,8 @@ export const initialState: any = {
               nameTask: 'Completed Reminder',
               keyTask: 0,
               isChecked: false,
+              isFlagged: false,
+              noteTask: '',
             }
           ]
         }
@@ -111,6 +127,8 @@ export const initialState: any = {
               nameTask: 'Completed Reminder',
               keyTask: 0,
               isChecked: false,
+              isFlagged: false,
+              noteTask: '',
             }
           ]
         }

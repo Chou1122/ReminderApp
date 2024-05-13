@@ -48,17 +48,14 @@ export default function Home() {
   const renderNotiBoxes = () => {
     return notiBoxes.map((box, index) => {
       return (
-        <>
-          {boxChecked[box.keyBox] && (
-            <NotiBox
-              key={index}
-              colorBox={box.colorBox}
-              iconBox={box.iconBox}
-              textBox={box.textBox}
-              numberBox={box.numberBox}
-            />
-          )}
-        </>
+        <NotiBox
+          key={index}
+          colorBox={box.colorBox}
+          iconBox={box.iconBox}
+          textBox={box.textBox}
+          numberBox={box.numberBox}
+          keyBox={box.keyBox}
+        />
       );
     });
   };
@@ -133,7 +130,7 @@ export default function Home() {
           </View>
 
           {/* View ao de tao khoang trong */}
-          <View className="h-[64] w-full"></View>
+          <View className="h-24 w-full"></View>
         </ScrollView>
       </View>
       <View

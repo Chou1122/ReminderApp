@@ -3,6 +3,14 @@ export interface myTaskType {
     nameTask: string,
     keyTask: number,
     isChecked: boolean,
+    isFlagged: boolean,
+    noteTask: string,
+
+    useDate: boolean,
+    dateTask: string,
+    useTime: boolean,
+    hourTask: number,
+    minuteTask: number,
 }
 
 export interface myListType {

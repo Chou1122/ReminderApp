@@ -68,6 +68,13 @@ export default function NewTaskTab(myProp: { navigation: any, indexKey: number }
     dispatch(actionAddTask({
       indexList: indexList,
       nameTask: titleState,
+      noteTask: noteState,
+      
+      useDate: false,
+      dateTask: '12/09/2003',
+      useTime: false,
+      hourTask: 12,
+      minuteTask: 5,
     }));
 
     dispatch(acitonSetTitleNewTask(""));

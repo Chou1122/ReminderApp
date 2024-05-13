@@ -30,13 +30,19 @@ import { actionSetOpenNewReminderTab } from "../../feature/openNewReminder/openN
 import { actionSetOpenNewReminderDetailTab } from "../../feature/openNewReminderDetail/openNewReminderDetail.reducer";
 import { listColor, listIcon } from "./allArrList";
 import { actionAddList } from "../../feature/allListRedux/myList.reducer";
+import { useNavigationState } from "@react-navigation/native";
 
 import { actionAddListAndTask } from "../../feature/allListRedux/myList.reducer";
+import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
 
 export default function NewTaskAloneTab() {
   const openNewReminderTab = useSelector(
     (state: RootState) => state.openNewReminderRedux.openTab
   );
+
+  const countKeyIndex = useSelector(
+    (state: RootState) => state.setMyList.countKey
+  )
 
   const tmpToday = new Date(Date.now());
   const today = format(tmpToday, "dd/MM/yyyy");
@@ -79,25 +85,62 @@ export default function NewTaskAloneTab() {
     dispatch(actionTurnTimeTask(false));
   };
 
+  const navigationState = useNavigationState(state => state);
+
   const addOnPress = () => {
     if (titleState == "" || listNameState == "") return;
 
-    dispatch(
-      actionAddListAndTask({
-        newList: {
-          colorBox: listColor[0],
-          iconBox: listIcon[0],
-          textBox: listNameState,
-          numberBox: 1,
-        },
-        newTask: {
-          isNew: true,
-          nameTask: titleState,
-          keyTask: 0,
-          isChecked: false,
-        },
-      })
-    );
+    if (navigationState.routes[navigationState.index].name == 'FlaggedGroupDetail') {
+      dispatch(
+        actionAddListAndTask({
+          newList: {
+            colorBox: listColor[0],
+            iconBox: listIcon[0],
+            textBox: listNameState,
+            numberBox: 1,
+          },
+          newTask: {
+            isNew: true,
+            nameTask: titleState,
+            keyTask: 0,
+            isChecked: false,
+            isFlagged: true,
+            noteTask: noteState,
+            useDate: false,
+            dateTask: '12/09/2003',
+            useTime: false,
+            hourTask: 12,
+            minuteTask: 5,
+          },
+        })
+      );
+
+      dispatch(actionHandleFlaggedTask({indexList : countKeyIndex + 1,indexTask : 0}));
+    } else {
+      dispatch(
+        actionAddListAndTask({
+          newList: {
+            colorBox: listColor[0],
+            iconBox: listIcon[0],
+            textBox: listNameState,
+            numberBox: 1,
+          },
+          newTask: {
+            isNew: true,
+            nameTask: titleState,
+            keyTask: 0,
+            isChecked: false,
+            isFlagged: false,
+            noteTask: noteState,
+            useDate: false,
+            dateTask: '12/09/2003',
+            useTime: false,
+            hourTask: 12,
+            minuteTask: 5,
+          },
+        })
+      );
+    }
 
     dispatch(actionSetOpenNewReminderTab(false));
   };

@@ -12,6 +12,8 @@ import openInfoListRedux from "./src/feature/openInfoList/openInfoList.reducer";
 import c2PriorityTaskOpenRedux from "./src/feature/c2PriorityTaskOpen/c2PriorityTaskOpen.reducer";
 import checkGroupRedux from "./src/feature/checkGroup/checkGroup.reducer";
 import taskDetailRedux from "./src/feature/taskDetailRedux/taskDetailRedux.reducer";
+import flaggedGruopRedux from "./src/feature/flaggedGroupRedux/flaggedGroup.reducer";
+import taskAndListOpenKeyRedux from "./src/feature/TaskAndListOpenKey/taskAndListOpenKey.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +29,8 @@ export const store = configureStore({
     c2PriorityTaskOpenRedux: c2PriorityTaskOpenRedux,
     checkGroupRedux: checkGroupRedux,
     taskDetailRedux: taskDetailRedux,
+    flaggedGruopRedux: flaggedGruopRedux,
+    taskAndListOpenKeyRedux: taskAndListOpenKeyRedux,
   },
 });
 
