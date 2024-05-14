@@ -31,6 +31,7 @@ import { actionSetOpenNewReminderDetailTab } from "../../feature/openNewReminder
 import { listColor, listIcon } from "./allArrList";
 import { actionAddList } from "../../feature/allListRedux/myList.reducer";
 import { useNavigationState } from "@react-navigation/native";
+import { actionHandleScheduledGroup } from "../../feature/scheduledGroupRedux/sheduledGroup.reducer";
 
 import { actionAddListAndTask } from "../../feature/allListRedux/myList.reducer";
 import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
@@ -116,7 +117,37 @@ export default function NewTaskAloneTab() {
       );
 
       dispatch(actionHandleFlaggedTask({indexList : countKeyIndex + 1,indexTask : 0}));
-    } else {
+    } else 
+    if (navigationState.routes[navigationState.index].name == 'ScheduledGroupDetail') {
+      const tmpToday = new Date(Date.now());
+      const today = format(tmpToday,'dd/MM/yyyy');
+
+      dispatch(
+        actionAddListAndTask({
+          newList: {
+            colorBox: listColor[0],
+            iconBox: listIcon[0],
+            textBox: listNameState,
+            numberBox: 1,
+          },
+          newTask: {
+            isNew: true,
+            nameTask: titleState,
+            keyTask: 0,
+            isChecked: false,
+            isFlagged: false,
+            noteTask: noteState,
+            useDate: true,
+            dateTask: today,
+            useTime: false,
+            hourTask: 12,
+            minuteTask: 5,
+          },
+        })
+      );
+
+      dispatch(actionHandleScheduledGroup({indexList : countKeyIndex + 1,indexTask : 0}));
+    } else{
       dispatch(
         actionAddListAndTask({
           newList: {

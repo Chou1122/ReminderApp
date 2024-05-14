@@ -14,6 +14,8 @@ export default function DateOpenTabTask() {
         (state: RootState) => state.dateTaskRedux
     );
 
+    // console.log(dateStore);
+
     useEffect(() => {
       dispatch(actionTurnDateTask(false));
     },[])

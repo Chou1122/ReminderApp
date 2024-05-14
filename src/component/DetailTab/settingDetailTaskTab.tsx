@@ -28,11 +28,13 @@ import {
   actionTurnTimeTask,
 } from "../../feature/opentab/opentab.reducer";
 
-import { actionSetFlagTask } from "../../feature/allListRedux/myList.reducer";
+import { actionSetFlagTask , actionSetDateTask as actionSetDateTaskList, actionSetUseDateTask as actionSetUseDateTaskList } from "../../feature/allListRedux/myList.reducer";
 
 import { minuteList, hourList } from "./allTimeSample";
 import { useNavigationState } from "@react-navigation/native";
 import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
+import { actionSetDateTask, actionTurnDateTask, actionSetUseDateTask } from "../../feature/dateTest/dateTest.reducer";
+import { actionHandleScheduledGroup } from "../../feature/scheduledGroupRedux/sheduledGroup.reducer";
 
 export default function SettingDetailTaskTab(myProp: {
   navigation: any;
@@ -67,7 +69,8 @@ export default function SettingDetailTaskTab(myProp: {
     indexTask = taskAndListKey.indexTask;
   }
 
-  const [dateState, setDateState] = useState<boolean>();
+  const [dateState, setDateState] = useState<string>('12/09/2003');
+  const [useDateState, setUseDateState] = useState<boolean>(false);
   const [tagsState, setTagsState] = useState<boolean>();
   const [locationState, setLocationState] = useState<boolean>();
   const [messState, setMessState] = useState<boolean>();
@@ -110,18 +113,63 @@ export default function SettingDetailTaskTab(myProp: {
     setFlagState(
       myListArr[posListtmp]["taskList"]["taskListArr"][posTasktmp].isFlagged
     );
+
+    const useDate = myListArr[posListtmp]["taskList"]["taskListArr"][posTasktmp].useDate;
+    const dateTask = myListArr[posListtmp]["taskList"]["taskListArr"][posTasktmp].dateTask;
+
+    // setDateState(dateTask);
+    // setUseDateState(useDate);
+    dispatch(actionSetUseDateTask(useDate));
+    dispatch(actionSetDateTask(dateTask));
   }, [openTabList]);
 
   const dispatch = useDispatch();
 
   const navigation = myProp.navigation;
 
+  const dateStore = useSelector(
+    (state: RootState) => state.dateTaskRedux
+  );
+
   const backOnPress = () => {
     dispatch(actionCloseTab("settingDetailTaskTab"));
   };
 
+  // console.log('rerender');
+
   const doneOnPress = () => {
     dispatch(actionCloseTab("settingDetailTaskTab"));
+
+    let posListtmp = 0,
+      posTasktmp = 0;
+    for (let i = 0; i < myListArr.length; ++i) {
+      if (myListArr[i]["indexKey"] == indexList) {
+        posListtmp = i;
+        break;
+      }
+    }
+
+    for (
+      let i = 0;
+      i < myListArr[posListtmp]["taskList"]["taskListArr"].length;
+      i++
+    ) {
+      if (
+        myListArr[posListtmp]["taskList"]["taskListArr"][i]["keyTask"] ==
+        indexTask
+      ) {
+        posTasktmp = i;
+        break;
+      }
+    }
+    const useDate = myListArr[posListtmp]["taskList"]["taskListArr"][posTasktmp].useDate;
+
+    if (dateStore.useDateTask != useDate) {
+      dispatch(actionHandleScheduledGroup({indexList: indexList, indexTask:indexTask}));
+    }
+
+    dispatch(actionSetUseDateTaskList({indexList:indexList, indexTask:indexTask, useDate:dateStore.useDateTask}));
+    dispatch(actionSetDateTaskList({indexList:indexList, indexTask:indexTask, dateTask:dateStore.dateTask}));
   };
 
   const priorityOnPress = () => {

@@ -17,6 +17,11 @@ export const initialState: any = {
               isChecked: false,
               isFlagged: false,
               noteTask: '',
+              useDate: true,
+              dateTask: '12/09/2003',
+              useTime: true,
+              hourTask: 12,
+              minuteTask: 5,
             },
             {
                 isNew: true,
@@ -25,6 +30,11 @@ export const initialState: any = {
                 isChecked: true,
                 isFlagged: true,
                 noteTask: 'sample note for new reminder',
+                useDate: true,
+                dateTask: '12/09/2003',
+                useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
             },
             {
               isNew: false,
@@ -33,6 +43,11 @@ export const initialState: any = {
               isChecked: false,
               isFlagged: true,
               noteTask: 'sample not for reminder',
+              useDate: false,
+              dateTask: '12/09/2003',
+              useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
           },
           {
             isNew: false,
@@ -41,6 +56,11 @@ export const initialState: any = {
             isChecked: false,
             isFlagged: true,
             noteTask: 'this is note for gym',
+            useDate: false,
+            dateTask: '12/09/2003',
+            useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
           },
           ]
         }
@@ -61,6 +81,11 @@ export const initialState: any = {
               isChecked: false,
               isFlagged: false,
               noteTask: '',
+              useDate: true,
+              dateTask: '15/12/2024',
+              useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
             },
             {
               isNew: false,
@@ -69,6 +94,11 @@ export const initialState: any = {
               isChecked: false,
               isFlagged: false,
               noteTask: '',
+              useDate: true,
+              dateTask: '18/02/2024',
+              useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
             }
           ]
         }
@@ -89,6 +119,11 @@ export const initialState: any = {
               isChecked: false,
               isFlagged: false,
               noteTask: '',
+              useDate: false,
+              dateTask: '12/09/2003',
+              useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
             }
           ]
         }
@@ -109,6 +144,11 @@ export const initialState: any = {
               isChecked: false,
               isFlagged: false,
               noteTask: '',
+              useDate: false,
+              dateTask: '12/09/2003',
+              useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
             }
           ]
         }
@@ -129,6 +169,11 @@ export const initialState: any = {
               isChecked: false,
               isFlagged: false,
               noteTask: '',
+              useDate: false,
+              dateTask: '12/09/2003',
+              useTime: false,
+              hourTask: 12,
+              minuteTask: 5,
             }
           ]
         }

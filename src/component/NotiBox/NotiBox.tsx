@@ -31,6 +31,12 @@ export default function NotiBox(mProp: {
       (state: RootState) => state.flaggedGruopRedux
     )
     numberBox = FlaggedTaskList.length;
+  } else
+  if (textBox == 'Scheduled') {
+    const ScheduledTaskList = useSelector(
+      (state: RootState) => state.scheduledGruopRedux
+    )
+    numberBox = ScheduledTaskList.length;
   }
 
   const dispatch = useDispatch();
@@ -41,6 +47,7 @@ export default function NotiBox(mProp: {
     }
     if (textBox == "Scheduled") {
       navigation.navigate("ScheduledGroupDetail");
+      dispatch(actionCloseTab('settingDetailTaskTab'));
     }
     if (textBox == "Today") {
       navigation.navigate("TodayGroupDetail");

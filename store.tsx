@@ -14,6 +14,7 @@ import checkGroupRedux from "./src/feature/checkGroup/checkGroup.reducer";
 import taskDetailRedux from "./src/feature/taskDetailRedux/taskDetailRedux.reducer";
 import flaggedGruopRedux from "./src/feature/flaggedGroupRedux/flaggedGroup.reducer";
 import taskAndListOpenKeyRedux from "./src/feature/TaskAndListOpenKey/taskAndListOpenKey.reducer";
+import scheduledGruopRedux from "./src/feature/scheduledGroupRedux/sheduledGroup.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -31,6 +32,7 @@ export const store = configureStore({
     taskDetailRedux: taskDetailRedux,
     flaggedGruopRedux: flaggedGruopRedux,
     taskAndListOpenKeyRedux: taskAndListOpenKeyRedux,
+    scheduledGruopRedux: scheduledGruopRedux,
   },
 });
 

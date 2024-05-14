@@ -13,6 +13,13 @@ export const actionAddTask = createAction<any>('setMyList/setTask/addTask');
 export const actionClearCheckTask = createAction<any>('setMyList/setTask/clearCheckTask');
 export const actionSetFlagTask = createAction<any>('setMyList/actionSetFlagTask');
 
+export const actionSetNoteTask = createAction<any>('setMyList/actionSetNoteTask');
+export const actionSetDateTask = createAction<any>('setMyList/actionSetDateTask');
+export const actionSetUseDateTask = createAction<any>('setMyList/actionSetUseDateTask');
+export const actionSetUseTimeTask = createAction<any>('setMyList/actionSetTimeTask');
+export const actionSetHourTask = createAction<any>('setMyList/actionSetHourTask');
+export const actionSetMinuteTask = createAction<any>('setMyList/setMinuteTask');
+
 export const actionAddListAndTask = createAction<any>('setMyList/addListAndTask');
 export const actionAddListFlagAndTask = createAction<any>('setMyList/actionAddListFlagAndTag');
 
@@ -139,6 +146,79 @@ const setMyList = createReducer(initialState, builder => {
             break;
           }
         }
+    })
+    
+    .addCase(actionSetDateTask, (state:any, action: any) => {
+      const myAction:any = action.payload;
+
+      for (let i = 0; i < state['myListArr'].length; i++) {
+        if (myAction.indexList == state['myListArr'][i]['indexKey']) { 
+          for (let j = 0; j < state['myListArr'][i]['taskList']['taskListArr'].length; j++) {
+            if (state['myListArr'][i]['taskList']['taskListArr'][j]["keyTask"] == myAction.indexTask) {
+              state['myListArr'][i]['taskList']['taskListArr'][j]['dateTask'] = myAction.dateTask;
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }).addCase(actionSetUseDateTask, (state:any, action: any) => {
+      const myAction:any = action.payload;
+      // console.log(myAction);
+
+      for (let i = 0; i < state['myListArr'].length; i++) {
+        if (myAction.indexList == state['myListArr'][i]['indexKey']) { 
+          for (let j = 0; j < state['myListArr'][i]['taskList']['taskListArr'].length; j++) {
+            if (state['myListArr'][i]['taskList']['taskListArr'][j]["keyTask"] == myAction.indexTask) {
+              state['myListArr'][i]['taskList']['taskListArr'][j]['useDate'] = myAction.useDate;
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }).addCase(actionSetUseTimeTask, (state:any, action: any) => {
+      const myAction:any = action.payload;
+
+      for (let i = 0; i < state['myListArr'].length; i++) {
+        if (myAction.indexList == state['myListArr'][i]['indexKey']) { 
+          for (let j = 0; j < state['myListArr'][i]['taskList']['taskListArr'].length; j++) {
+            if (state['myListArr'][i]['taskList']['taskListArr'][j]["keyTask"] == myAction.indexTask) {
+              state['myListArr'][i]['taskList']['taskListArr'][j]['useTime'] = myAction.useTime;
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }).addCase(actionSetHourTask, (state:any, action: any) => {
+      const myAction:any = action.payload;
+
+      for (let i = 0; i < state['myListArr'].length; i++) {
+        if (myAction.indexList == state['myListArr'][i]['indexKey']) { 
+          for (let j = 0; j < state['myListArr'][i]['taskList']['taskListArr'].length; j++) {
+            if (state['myListArr'][i]['taskList']['taskListArr'][j]["keyTask"] == myAction.indexTask) {
+              state['myListArr'][i]['taskList']['taskListArr'][j]['hourTask'] = myAction.hourTask;
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }).addCase(actionSetMinuteTask, (state:any, action: any) => {
+      const myAction:any = action.payload;
+
+      for (let i = 0; i < state['myListArr'].length; i++) {
+        if (myAction.indexList == state['myListArr'][i]['indexKey']) { 
+          for (let j = 0; j < state['myListArr'][i]['taskList']['taskListArr'].length; j++) {
+            if (state['myListArr'][i]['taskList']['taskListArr'][j]["keyTask"] == myAction.indexTask) {
+              state['myListArr'][i]['taskList']['taskListArr'][j]['minuteTask'] = myAction.minuteTask;
+              break;
+            }
+          }
+          break;
+        }
+      }
     })
 
 })

@@ -11,14 +11,15 @@ import {
   actionSetIndexTaskOpened,
 } from "../../feature/opentab/opentab.reducer";
 
+import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
+import { actionSetFlagTask } from "../../feature/allListRedux/myList.reducer";
+
 import {
   actionSetIndexList,
   actionSetIndexTask,
 } from "../../feature/TaskAndListOpenKey/taskAndListOpenKey.reducer";
-import { actionSetFlagTask } from "../../feature/allListRedux/myList.reducer";
-import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
 
-export default function FlaggedTaskDetail(myProp: {
+export default function ScheduledTaskDetail(myProp: {
   indexList: any;
   indexTask: any;
 }) {
@@ -33,8 +34,6 @@ export default function FlaggedTaskDetail(myProp: {
     (state: RootState) => state.openTab.openTabList.settingDetailTaskTab
   );
 
-  const [posList, setPosList] = useState<number>(0);
-  const [posTask, setPosTask] = useState<number>(0);
   const [titleState, setTitleState] = useState<string>("");
   const [noteState, setNoteState] = useState<string>("");
   const [listState, setListState] = useState<string>("");
