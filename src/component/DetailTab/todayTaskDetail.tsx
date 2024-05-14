@@ -20,7 +20,7 @@ import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flagged
 
 import { minuteList, hourList } from "./allTimeSample";
 
-export default function FlaggedTaskDetail(myProp: {
+export default function TodayTaskDetail(myProp: {
   indexList: any;
   indexTask: any;
 }) {

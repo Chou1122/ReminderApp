@@ -18,6 +18,7 @@ import { actionSetOpenNewReminderTab } from "../../feature/openNewReminder/openN
 import ScheduledTaskDetail from "./scheduledTaskDetail";
 import SettingDetailTaskTab from "./settingDetailTaskTab";
 import NewTaskAloneTab from "../NewTab/NewTaskAloneTab";
+import NewTaskDetailAloneTab from "../NewTab/NewTaskDetailAloneTab";
 
 export default function FlaggedGroupDetail() {
 
@@ -37,7 +38,7 @@ export default function FlaggedGroupDetail() {
     navigation.goBack();
   };
 
-  const renderFlaggedTask = () => {
+  const renderScheduledTask = () => {
     return scheduledTaskList.map((item: any, index: any) => {
       return (
         <ScheduledTaskDetail
@@ -101,7 +102,7 @@ export default function FlaggedGroupDetail() {
             </Text>
           </View>
 
-          {renderFlaggedTask()}
+          {renderScheduledTask()}
 
           <View className="h-20 w-full"></View>
         </ScrollView>
@@ -133,6 +134,7 @@ export default function FlaggedGroupDetail() {
       ></SettingDetailTaskTab>
 
       <NewTaskAloneTab></NewTaskAloneTab>
+      <NewTaskDetailAloneTab></NewTaskDetailAloneTab>
     </>
   );
 }

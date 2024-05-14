@@ -11,6 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { actionSetOpenTabInfoList } from "../../feature/openInfoList/openInfoList.reducer";
 import { actionDeleteList } from "../../feature/allListRedux/myList.reducer";
 import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
+import { actionHandleScheduledGroup } from "../../feature/scheduledGroupRedux/sheduledGroup.reducer";
 
 export default function InfoListTab(myProp: { navigation: any, indexList: any }) {
   const openInfoListTab = useSelector(
@@ -37,6 +38,9 @@ export default function InfoListTab(myProp: { navigation: any, indexList: any })
         for (let j = 0; j < myArrStore[i]['taskList']['taskListArr'].length; j++) {
           if (myArrStore[i]['taskList']['taskListArr'][j]['isFlagged'] == true) {
             dispatch(actionHandleFlaggedTask({indexList: indexList, indexTask:myArrStore[i]['taskList']['taskListArr'][j]['keyTask']}))
+          }
+          if (myArrStore[i]['taskList']['taskListArr'][j]['useDate'] == true) {
+            dispatch(actionHandleScheduledGroup({indexList: indexList, indexTask:myArrStore[i]['taskList']['taskListArr'][j]['keyTask']}))
           }
         }
         break;

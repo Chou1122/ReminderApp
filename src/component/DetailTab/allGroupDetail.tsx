@@ -6,6 +6,7 @@ import {
   View,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { format } from "date-fns";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,13 +14,45 @@ import { RootState } from "../../../store";
 
 import { useNavigation } from "@react-navigation/native";
 
+import { actionSetOpenNewReminderTab } from "../../feature/openNewReminder/openNewReminder.reducer";
+
+import TodayTaskDetail from "./todayTaskDetail";
+import SettingDetailTaskTab from "./settingDetailTaskTab";
+import NewTaskAloneTab from "../NewTab/NewTaskAloneTab";
+import NewTaskDetailAloneTab from "../NewTab/NewTaskDetailAloneTab";
+import FlaggedTaskDetail from "./flaggedTaskDetail";
+import ScheduledTaskDetail from "./scheduledTaskDetail";
+
 export default function AllGroupDetail() {
-  const openTabList = useSelector(
-    (state: RootState) => state.openTab.openTabList
+  let todayTaskList: Array<any> = [];
+  const tmpToday = new Date(Date.now());
+  const today = format(tmpToday, "dd/MM/yyyy");
+
+  const allListStore = useSelector(
+    (state: RootState) => state.setMyList.myListArr
   );
 
-  const taskKeyOpen = useSelector(
-    (state: RootState) => state.openTab.openTabList.indexTaskOpened
+  todayTaskList = [];
+  for (let i = 0; i < allListStore.length; i++) {
+    for (
+      let j = 0;
+      j < allListStore[i]["taskList"]["taskListArr"].length;
+      j++
+    ) {
+      if (
+        allListStore[i]["taskList"]["taskListArr"][j]["dateTask"] == today &&
+        allListStore[i]["taskList"]["taskListArr"][j]["useDate"] == true
+      ) {
+        todayTaskList.push({
+          indexList: allListStore[i]["indexKey"],
+          indexTask: allListStore[i]["taskList"]["taskListArr"][j]["keyTask"],
+        });
+      }
+    }
+  }
+
+  const taskAndListKey = useSelector(
+    (state: RootState) => state.taskAndListOpenKeyRedux
   );
 
   const dispatch = useDispatch();
@@ -27,6 +60,54 @@ export default function AllGroupDetail() {
 
   const listsOnPress = () => {
     navigation.goBack();
+  };
+
+  const renderTodayTask = () => {
+    return todayTaskList.map((item: any, index: any) => {
+      return (
+        <TodayTaskDetail
+          key={index}
+          indexList={item.indexList}
+          indexTask={item.indexTask}
+        />
+      );
+    });
+  };
+
+  const newReminderOnPress = () => {
+    dispatch(actionSetOpenNewReminderTab(true));
+  };
+
+  const flaggedTaskList = useSelector(
+    (state: RootState) => state.flaggedGruopRedux
+  );
+
+  const renderFlaggedTask = () => {
+    return flaggedTaskList.map((item: any, index: any) => {
+      return (
+        <FlaggedTaskDetail
+          key={index}
+          indexList={item.indexList}
+          indexTask={item.indexTask}
+        />
+      );
+    });
+  };
+
+  const scheduledTaskList = useSelector(
+    (state: RootState) => state.scheduledGruopRedux
+  );
+
+  const renderScheduledTask = () => {
+    return scheduledTaskList.map((item: any, index: any) => {
+      return (
+        <ScheduledTaskDetail
+          key={index}
+          indexList={item.indexList}
+          indexTask={item.indexTask}
+        />
+      );
+    });
   };
 
   return (
@@ -71,224 +152,89 @@ export default function AllGroupDetail() {
         </View>
 
         <ScrollView className="w-full">
-          <View className="h-fit w-full border-b-2 border-gray-200 pl-5 pr-5 pb-2 pt-2">
-            <Text className="text-4xl font-bold text-gray-600">All</Text>
-          </View>
-          <View className="h-fit w-full pl-5 pt-2 pb-2">
-            <Text className="text-2xl font-bold" style={{ color: "#F09A37" }}>
-              Reminders
-            </Text>
-          </View>
-
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-fit w-full border-b-2 border-gray-200 justify-start pb-1">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
-
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">New Image Reminder</Text>
-                  </View>
-                  <View className="h-fit w-full">
-                    <Text className="text-sm text-gray-400">
-                      Note for image reminder
-                    </Text>
-                  </View>
-                  <View className="h-fit w-full">
-                    <Text className="text-sm text-gray-400">Today, 18:00</Text>
-                  </View>
-                </View>
-
-                <TouchableOpacity className="h-full w-[16%] items-center pt-2">
-                  <Ionicons name="flag" size={22} color={"#F09A37"} />
-                </TouchableOpacity>
+          {todayTaskList.length > 0 && (
+            <>
+              <View className="h-fit w-full pl-5 pr-5 pb-2 pt-2">
+                <Text
+                  className="text-4xl font-bold"
+                  style={{ color: "#3478f6" }}
+                >
+                  Today
+                </Text>
               </View>
-            </View>
-          </View>
 
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-fit w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
+              {renderTodayTask()}
 
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">Completed Reminder</Text>
-                  </View>
-                  <View className="h-fit w-full">
-                    <Text className="text-sm text-gray-400">
-                      Tomorrow, 20:00
-                    </Text>
-                  </View>
-                </View>
+              <View className="h-2 w-full"></View>
+            </>
+          )}
 
-                <TouchableOpacity className="h-full w-[16%] items-center pt-2">
-                  <Ionicons name="flag" size={22} color={"#F09A37"} />
-                </TouchableOpacity>
+          {flaggedTaskList.length > 0 && (
+            <>
+              <View className="h-fit w-full pl-5 pr-5 pb-2 pt-2">
+                <Text
+                  className="text-4xl font-bold"
+                  style={{ color: "#F09A37" }}
+                >
+                  Flagged
+                </Text>
               </View>
-            </View>
-          </View>    
 
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[60] w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
+              {renderFlaggedTask()}
 
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">Remember to look back</Text>
-                  </View>
-                  <View className="h-fit w-full">
-                    <Text className="text-sm text-gray-400">
-                      05/01/2022
-                    </Text>
-                  </View>
-                </View>
+              <View className="h-2 w-full"></View>
+            </>
+          )}
 
-                <TouchableOpacity className="h-full w-[16%] items-center pt-2">
-                  <Ionicons name="flag" size={22} color={"#F09A37"} />
-                </TouchableOpacity>
+          {scheduledTaskList.length > 0 && (
+            <>
+              <View className="h-fit w-full pl-5 pr-5 pb-2 pt-2">
+                <Text
+                  className="text-4xl font-bold"
+                  style={{ color: "#eb4d3d" }}
+                >
+                  Scheduled
+                </Text>
               </View>
-            </View>
-          </View> 
 
-          <View className="h-fit w-full pl-5 mt-2 border-b-2 border-gray-200">
-            <View className="flex-row h-[48] w-full justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square bg-gray-200 rounded-full justify-center items-center">
-                    <Ionicons name='add' size={24} color='white'/>
-                </View>
-              </TouchableOpacity>
+              {renderScheduledTask()}
+            </>
+          )}
 
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base"></Text>
-                  </View>
-                  <View className="h-fit w-full">
-                    <Text className="text-sm text-gray-400">
-                      
-                    </Text>
-                  </View>
-                </View>
-
-                <TouchableOpacity className="h-full w-[16%] items-center pt-2">
-                  {/* <Ionicons name="flag" size={22} color={"#F09A37"} /> */}
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>   
-
-          <View className="h-fit w-full pl-5 pt-2 pb-2">
-            <Text className="text-2xl font-bold" style={{ color: "#367AF6" }}>
-              Timetable
-            </Text>
-          </View>  
-
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[44] w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
-
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">05:30 Wake up</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View> 
-
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[44] w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
-
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">05:30 - 06:30 Do Exercise</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View> 
-
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[44] w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
-
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">08:00 - 08:30 Go to Work</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>    
-
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[44] w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
-
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">17:00 - 17:30 Come back Home</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View> 
-
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[44] w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
-
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">20:00 - 20:30 Eat Dinner</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View> 
-
-          <View className="h-fit w-full pl-5 mt-2">
-            <View className="flex-row h-[44] w-full border-b-2 border-gray-200 justify-start">
-              <TouchableOpacity className="h-full w-[12%]">
-                <View className="h-[28] aspect-square border-gray-200 border-2 rounded-full"></View>
-              </TouchableOpacity>
-
-              <View className="flex-row w-[88%] h-full justify-between pl-1 pr-5">
-                <View className="h-full w-[80%]">
-                  <View className="h-fit w-full">
-                    <Text className="text-base">22:00 - 22:30 Go to Sleep</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View> 
-
+          <View className="h-10 w-full"></View>
         </ScrollView>
+
+        {/* <View className="h-[6.4%] w-full absolute bottom-0 pl-2 pr-5 bg-white">
+          <TouchableOpacity
+            className="flex-row h-full w-fit"
+            onPress={() => {
+              newReminderOnPress();
+            }}
+          >
+            <View className="h-full aspect-square justify-center items-center">
+              <Ionicons name="add-circle" size={36} color={"#3478f6"} />
+            </View>
+
+            <View className="h-full w-fit justify-center items-center pl-1">
+              <Text
+                style={{ color: "#3478f6" }}
+                className="text-xl font-medium"
+              >
+                New Reminder
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View> */}
       </View>
+
+      <SettingDetailTaskTab
+        navigation={navigation}
+        indexKey={taskAndListKey.indexList}
+        taskKey={taskAndListKey.indexTask}
+      ></SettingDetailTaskTab>
+
+      {/* <NewTaskAloneTab></NewTaskAloneTab> */}
+      {/* <NewTaskDetailAloneTab></NewTaskDetailAloneTab> */}
     </>
   );
 }

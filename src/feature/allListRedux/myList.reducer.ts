@@ -193,6 +193,7 @@ const setMyList = createReducer(initialState, builder => {
       }
     }).addCase(actionSetHourTask, (state:any, action: any) => {
       const myAction:any = action.payload;
+      // console.log('}}} ',myAction);
 
       for (let i = 0; i < state['myListArr'].length; i++) {
         if (myAction.indexList == state['myListArr'][i]['indexKey']) { 

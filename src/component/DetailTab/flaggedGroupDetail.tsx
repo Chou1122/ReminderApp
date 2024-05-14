@@ -18,6 +18,7 @@ import { actionSetOpenNewReminderTab } from "../../feature/openNewReminder/openN
 import FlaggedTaskDetail from "./flaggedTaskDetail";
 import SettingDetailTaskTab from "./settingDetailTaskTab";
 import NewTaskAloneTab from "../NewTab/NewTaskAloneTab";
+import NewTaskDetailAloneTab from "../NewTab/NewTaskDetailAloneTab";
 
 export default function FlaggedGroupDetail() {
   const openTabList = useSelector(
@@ -139,6 +140,7 @@ export default function FlaggedGroupDetail() {
       ></SettingDetailTaskTab>
 
       <NewTaskAloneTab></NewTaskAloneTab>
+      <NewTaskDetailAloneTab></NewTaskDetailAloneTab>
     </>
   );
 }

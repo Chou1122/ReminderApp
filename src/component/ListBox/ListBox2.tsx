@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionDeleteList } from "../../feature/allListRedux/myList.reducer";
 import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
 import { RootState } from "../../../store";
+import { actionHandleScheduledGroup } from "../../feature/scheduledGroupRedux/sheduledGroup.reducer";
 
 export default function ListBox2(myProp: {
   colorBox: any;
@@ -37,6 +38,9 @@ export default function ListBox2(myProp: {
         for (let j = 0; j < myArrStore[i]['taskList']['taskListArr'].length; j++) {
           if (myArrStore[i]['taskList']['taskListArr'][j]['isFlagged'] == true) {
             dispatch(actionHandleFlaggedTask({indexList: indexList, indexTask:myArrStore[i]['taskList']['taskListArr'][j]['keyTask']}))
+          }
+          if (myArrStore[i]['taskList']['taskListArr'][j]['useDate'] == true) {
+            dispatch(actionHandleScheduledGroup({indexList: indexList, indexTask:myArrStore[i]['taskList']['taskListArr'][j]['keyTask']}))
           }
         }
         break;

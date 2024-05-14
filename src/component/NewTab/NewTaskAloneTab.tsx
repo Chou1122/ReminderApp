@@ -43,7 +43,7 @@ export default function NewTaskAloneTab() {
 
   const countKeyIndex = useSelector(
     (state: RootState) => state.setMyList.countKey
-  )
+  );
 
   const tmpToday = new Date(Date.now());
   const today = format(tmpToday, "dd/MM/yyyy");
@@ -86,12 +86,14 @@ export default function NewTaskAloneTab() {
     dispatch(actionTurnTimeTask(false));
   };
 
-  const navigationState = useNavigationState(state => state);
+  const navigationState = useNavigationState((state) => state);
 
   const addOnPress = () => {
     if (titleState == "" || listNameState == "") return;
 
-    if (navigationState.routes[navigationState.index].name == 'FlaggedGroupDetail') {
+    if (
+      navigationState.routes[navigationState.index].name == "FlaggedGroupDetail"
+    ) {
       dispatch(
         actionAddListAndTask({
           newList: {
@@ -108,7 +110,7 @@ export default function NewTaskAloneTab() {
             isFlagged: true,
             noteTask: noteState,
             useDate: false,
-            dateTask: '12/09/2003',
+            dateTask: "12/09/2003",
             useTime: false,
             hourTask: 12,
             minuteTask: 5,
@@ -116,11 +118,15 @@ export default function NewTaskAloneTab() {
         })
       );
 
-      dispatch(actionHandleFlaggedTask({indexList : countKeyIndex + 1,indexTask : 0}));
-    } else 
-    if (navigationState.routes[navigationState.index].name == 'ScheduledGroupDetail') {
+      dispatch(
+        actionHandleFlaggedTask({ indexList: countKeyIndex + 1, indexTask: 0 })
+      );
+    } else if (
+      navigationState.routes[navigationState.index].name ==
+      "ScheduledGroupDetail"
+    ) {
       const tmpToday = new Date(Date.now());
-      const today = format(tmpToday,'dd/MM/yyyy');
+      const today = format(tmpToday, "dd/MM/yyyy");
 
       dispatch(
         actionAddListAndTask({
@@ -146,8 +152,49 @@ export default function NewTaskAloneTab() {
         })
       );
 
-      dispatch(actionHandleScheduledGroup({indexList : countKeyIndex + 1,indexTask : 0}));
-    } else{
+      dispatch(
+        actionHandleScheduledGroup({
+          indexList: countKeyIndex + 1,
+          indexTask: 0,
+        })
+      );
+    } else if (
+      navigationState.routes[navigationState.index].name == "TodayGroupDetail"
+    ) {
+      const tmpToday = new Date(Date.now());
+      const today = format(tmpToday, "dd/MM/yyyy");
+
+      dispatch(
+        actionAddListAndTask({
+          newList: {
+            colorBox: listColor[0],
+            iconBox: listIcon[0],
+            textBox: listNameState,
+            numberBox: 1,
+          },
+          newTask: {
+            isNew: true,
+            nameTask: titleState,
+            keyTask: 0,
+            isChecked: false,
+            isFlagged: false,
+            noteTask: noteState,
+            useDate: true,
+            dateTask: today,
+            useTime: false,
+            hourTask: 12,
+            minuteTask: 5,
+          },
+        })
+      );
+
+      dispatch(
+        actionHandleScheduledGroup({
+          indexList: countKeyIndex + 1,
+          indexTask: 0,
+        })
+      );
+    } else {
       dispatch(
         actionAddListAndTask({
           newList: {
@@ -164,7 +211,7 @@ export default function NewTaskAloneTab() {
             isFlagged: false,
             noteTask: noteState,
             useDate: false,
-            dateTask: '12/09/2003',
+            dateTask: "12/09/2003",
             useTime: false,
             hourTask: 12,
             minuteTask: 5,

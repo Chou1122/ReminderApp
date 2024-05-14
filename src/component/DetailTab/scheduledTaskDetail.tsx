@@ -14,6 +14,8 @@ import {
 import { actionHandleFlaggedTask } from "../../feature/flaggedGroupRedux/flaggedGroup.reducer";
 import { actionSetFlagTask } from "../../feature/allListRedux/myList.reducer";
 
+import { minuteList, hourList } from "./allTimeSample";
+
 import {
   actionSetIndexList,
   actionSetIndexTask,
@@ -41,6 +43,9 @@ export default function ScheduledTaskDetail(myProp: {
   const [useDateState, setUseDateState] = useState<string>("");
   const [flagState, setFlagState] = useState<boolean>(false);
   const [flagBtnState, setFlagBtnState] = useState<boolean>(true);
+  const [useTimeState, setUseTimeState] = useState<boolean>(true);
+  const [hourTimeState, setHourTimeState] = useState<number>(0);
+  const [minuteTimeState, setMinuteTimeState] = useState<number>(0);
 
   const navigation = useNavigation();
 
@@ -87,6 +92,16 @@ export default function ScheduledTaskDetail(myProp: {
     setFlagState(
       myListArr[tmpIndexList]["taskList"]["taskListArr"][tmpIndexTask].isFlagged
     );
+    setUseTimeState(
+      myListArr[tmpIndexList]["taskList"]["taskListArr"][tmpIndexTask].useTime
+    );
+    setHourTimeState(
+      myListArr[tmpIndexList]["taskList"]["taskListArr"][tmpIndexTask].hourTask
+    );
+    setMinuteTimeState(
+      myListArr[tmpIndexList]["taskList"]["taskListArr"][tmpIndexTask]
+        .minuteTask
+    );
   }, [openDetailTabState, flagBtnState]);
 
   const dispatch = useDispatch();
@@ -128,9 +143,21 @@ export default function ScheduledTaskDetail(myProp: {
                   <Text className="text-sm text-gray-400">{noteState}</Text>
                 )}
               </View>
-              <View className="h-fit w-full">
+              <View className="flex-row h-fit w-full">
                 {useDateState && (
-                  <Text className="text-sm text-gray-400">{dateState}</Text>
+                  <Text className="text-sm text-gray-400">
+                    {dateState + " "}
+                  </Text>
+                )}
+                {useTimeState && useDateState && (
+                  <Text className="text-sm text-gray-400">{"- "}</Text>
+                )}
+                {useTimeState && (
+                  <Text className="text-sm text-gray-400">
+                    {hourList[hourTimeState] +
+                      ":" +
+                      minuteList[minuteTimeState]}
+                  </Text>
                 )}
               </View>
             </TouchableOpacity>

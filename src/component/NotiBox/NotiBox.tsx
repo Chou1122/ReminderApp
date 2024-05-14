@@ -11,6 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
+import { format } from "date-fns";
 
 import { actionCloseTab } from "../../feature/opentab/opentab.reducer";
 
@@ -37,6 +38,75 @@ export default function NotiBox(mProp: {
       (state: RootState) => state.scheduledGruopRedux
     )
     numberBox = ScheduledTaskList.length;
+  } else 
+  if (textBox == 'Today') {
+    const tmpToday = new Date(Date.now());
+    const today = format(tmpToday, "dd/MM/yyyy");
+    const todayTaskList:Array<any> = [];
+
+    const allListStore = useSelector(
+      (state: RootState) => state.setMyList.myListArr
+    );
+  
+    for (let i = 0; i < allListStore.length; i++) {
+      for (
+        let j = 0;
+        j < allListStore[i]["taskList"]["taskListArr"].length;
+        j++
+      ) {
+        if (
+          allListStore[i]["taskList"]["taskListArr"][j]["dateTask"] == today &&
+          allListStore[i]["taskList"]["taskListArr"][j]["useDate"] == true
+        ) {
+          todayTaskList.push({
+            indexList: allListStore[i]["indexKey"],
+            indexTask: allListStore[i]["taskList"]["taskListArr"][j]["keyTask"],
+          });
+        }
+      }
+    }
+
+    numberBox = todayTaskList.length;
+  } else if(textBox == 'All') {
+    numberBox = 0;
+
+    const FlaggedTaskList = useSelector(
+      (state: RootState) => state.flaggedGruopRedux
+    )
+    numberBox += FlaggedTaskList.length;
+
+    const ScheduledTaskList = useSelector(
+      (state: RootState) => state.scheduledGruopRedux
+    )
+    numberBox += ScheduledTaskList.length;
+
+    const tmpToday = new Date(Date.now());
+    const today = format(tmpToday, "dd/MM/yyyy");
+    const todayTaskList:Array<any> = [];
+
+    const allListStore = useSelector(
+      (state: RootState) => state.setMyList.myListArr
+    );
+  
+    for (let i = 0; i < allListStore.length; i++) {
+      for (
+        let j = 0;
+        j < allListStore[i]["taskList"]["taskListArr"].length;
+        j++
+      ) {
+        if (
+          allListStore[i]["taskList"]["taskListArr"][j]["dateTask"] == today &&
+          allListStore[i]["taskList"]["taskListArr"][j]["useDate"] == true
+        ) {
+          todayTaskList.push({
+            indexList: allListStore[i]["indexKey"],
+            indexTask: allListStore[i]["taskList"]["taskListArr"][j]["keyTask"],
+          });
+        }
+      }
+    }
+
+    numberBox += todayTaskList.length;
   }
 
   const dispatch = useDispatch();
